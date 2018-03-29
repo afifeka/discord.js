@@ -195,18 +195,18 @@ bot.on("message", async message => {
   }
 
   if(cmd === `${prefix}warn`){
-      let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-          if(!wUser) return message.channel.send("Can't find user!");
-          let wReason = args.join(" ").slice(22);
-          if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You Are Not Enough Permission For This Command!");
+    message.channel.send("Command In Development")
+    //let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    //if(!wUser) return message.channel.send("Can't find user!");
+    //let wReason = args.join(" ").slice(22);
+    //if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No Can Do!");
 
-          message.channel.delete()
-          message.wUser.send("wReason")
-          message.delete().catch(O_o=>{});
-          message.channel.send("**Check Your PM!**")
+     //message.channel.delete()
+     //message.wUser.send("wReason")
+     //message.delete().catch(O_o=>{});
+     //message.channel.send("**Check Your PM!**")
     return;
   }
-  
   if(cmd === `${prefix}news`){
     message.delete()
     let announchemebed = new Discord.RichEmbed()
