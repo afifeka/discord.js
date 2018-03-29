@@ -47,12 +47,6 @@ bot.on("message", async message => {
 
     return;
   }
-  
-  if(cmd === `${prefix}invite`){
-    let vitembed = new Discord.RichEmbed()
-    .addField("Invite Me Your Discord", "[https://discordapp.com/api/oauth2/authorize?client_id=427752464499081217&permissions=8&scope=bot]"
-    return message.channel.send(vitembed);
-  }
 
   if(cmd === `${prefix}ban`){
 
@@ -129,8 +123,15 @@ bot.on("message", async message => {
     return message.channel.send(serverembed);
   }
 
-
-
+  if(cmd === `${prefix}invite`){
+    let bicon = bot.user.displayAvatarURL;
+    let fifembed = new discord.RichEmbed()
+    .addField("Invite To Your Discord!", "https://discordapp.com/api/oauth2/authorize?client_id=427752464499081217&permissions=8&scope=bot]"
+              
+    return message.channel.send(fifembed);
+  }
+  
+  
   if(cmd === `${prefix}botinfo`){
 
     let bicon = bot.user.displayAvatarURL;
