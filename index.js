@@ -200,6 +200,7 @@ bot.on("message", async message => {
           let wReason = args.join(" ").slice(22);
           if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You Are Not Enough Permission For This Command!");
 
+          message.channel.delete()
           message.wUser.send("wReason")
           message.delete().catch(O_o=>{});
           message.channel.send("**Check Your PM!**")
