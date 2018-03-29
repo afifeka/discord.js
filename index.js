@@ -47,6 +47,12 @@ bot.on("message", async message => {
 
     return;
   }
+  
+  if(cmd === `${prefix}invite`){
+    let vitembed = new Discord.RichEmbed()
+    .addField("Invite Me Your Discord", "[https://discordapp.com/api/oauth2/authorize?client_id=427752464499081217&permissions=8&scope=bot]"
+    return message.channel.send(vitembed);
+  }
 
   if(cmd === `${prefix}ban`){
 
