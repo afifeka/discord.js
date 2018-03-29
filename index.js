@@ -191,7 +191,7 @@ bot.on("message", async message => {
     .setDescription("**Information!**")
     .setColor("#ffc700")
     .addField("**Your Ping!**", + message.client.ping)
-    return message.author.send(pingembed);
+    return message.channel.send(pingembed);
   }
 
   if(cmd === `${prefix}warn`){
