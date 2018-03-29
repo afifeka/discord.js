@@ -185,10 +185,14 @@ bot.on("message", async message => {
     message.channel.send("**Check Your PM!**")
     return message.author.send(embed);           
   }
-  
+
   if(cmd === `${prefix}ping`){
-    message.channel.send("Your Ping Is `message.client.ping`")
-    return;
+    let pingembed = new Discord.RichEmbed()
+    .setDescription("**Information!**")
+    .setColor("#ffc700")
+    .addField("**Your Ping!**", + message.client.ping)
+    return message.author.send(pingembed);
+  }
 
   if(cmd === `${prefix}warn`){
       let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
