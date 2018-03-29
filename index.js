@@ -143,8 +143,8 @@ bot.on("message", async message => {
 
 
   if(cmd === `${prefix}clear`){
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No.");
-    if(!args[0]) return message.channel.send("no");
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You Are Not Enough Permission For This Command!.");
+    if(!args[0]) return message.channel.send("Input How Many Messages That Want To Delete!");
     message.channel.bulkDelete(args[0]).then(() => {
     message.channel.send(`Clear ${args[0]} messages.`).then(msg => msg.delete(2000));
    })
@@ -190,7 +190,7 @@ bot.on("message", async message => {
       let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
           if(!wUser) return message.channel.send("Can't find user!");
           let wReason = args.join(" ").slice(22);
-          if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No Can Do!");
+          if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You Are Not Enough Permission For This Command!");
 
           message.delete()
           message.wUser.send("wReason")
