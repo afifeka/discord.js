@@ -185,6 +185,10 @@ bot.on("message", async message => {
     message.channel.send("**Check Your PM!**")
     return message.author.send(embed);           
   }
+  
+  if(cmd === `${prefix}ping`){
+    message.channel.send("Your Ping Is `message.client.ping`")
+    return;
 
   if(cmd === `${prefix}warn`){
       let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
