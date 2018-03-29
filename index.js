@@ -206,7 +206,17 @@ bot.on("message", async message => {
           message.channel.send("**Check Your PM!**")
     return;
   }
+  
+  if(cmd === `${prefix}news`){
+    message.delete()
+    let announchemebed = new Discord.RichEmbed()
+    .setColor("000000")
+    .addField("📢 Announcement | Information", args.join(" "))
+    .setTimestamp()
+    .setFooter(`Executor : ${message.author.username}#${message.author.discriminator}`)
 
+    return message.channel.send(announchemebed);
+    
   if(cmd === `${prefix}tempmute`){
     let tomute = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if(!tomute) return message.reply("No Player Wants You Mute!");
