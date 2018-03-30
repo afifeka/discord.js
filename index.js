@@ -113,6 +113,7 @@ bot.on("message", async message => {
 
 
     message.delete().catch(O_o=>{});
+    message.channel.send(":white_check_mark: **| Success Reported The Player!**")
     reportschannel.send(reportEmbed);
 
     return;
