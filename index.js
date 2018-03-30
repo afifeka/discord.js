@@ -10,7 +10,7 @@ bot.on("ready", async () => {
   function randomStatus() {
         let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Added Question Command!', `Usage !help`]
         let rstatus = Math.floor(Math.random() * status.length);
-        bot.user.setActivity(status[rstatus], {type: 'PLAYING'});
+        bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
    }; setInterval(randomStatus, 40000)
  
