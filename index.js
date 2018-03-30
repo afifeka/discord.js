@@ -34,8 +34,8 @@ bot.on("message", async message => {
     let kickEmbed = new Discord.RichEmbed()
     .setDescription("**KICKED**")
     .setColor("#f80a0a")
-    .addField(":bust_in_silhouette: | Player Kicked", `${kUser} with ID ${kUser.id}`)
-    .addField(":bust_in_silhouette: | Kicked By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField(":bust_in_silhouette: | Player Kicked", `**${kUser} | ID ${kUser.id}**`)
+    .addField(":bust_in_silhouette: | Kicked By", `**<@${message.author.id}> | ID ${message.author.id}**`)
     .addField(":no_entry: | Reason", kReason);
 
     let kickChannel = message.guild.channels.find(`name`, "mod-log");
@@ -61,8 +61,8 @@ bot.on("message", async message => {
     let banEmbed = new Discord.RichEmbed()
     .setDescription("**BANNED**")
     .setColor("#f80a0a")
-    .addField(":bust_in_silhouette: | Player Banned", `${bUser} with ID ${bUser.id}`)
-    .addField(":bust_in_silhouette: | Banned By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField(":bust_in_silhouette: | Player Banned", `**${bUser} | ID ${bUser.id}**`)
+    .addField(":bust_in_silhouette: | Banned By", `**<@${message.author.id}> | ID ${message.author.id}**`)
     .addField(":no_entry: | Reason", bReason);
 
 
