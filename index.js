@@ -97,7 +97,7 @@ bot.on("message", async message => {
     .setColor("#8d09f1")
     .addField(":question: | Question", question)
     .addField(":envelope_with_arrow: | Answer", replies[result])
-    .setFooter(":warning: Command It With Alpha v0.1, Please Not Overuse Using This Command!");
+    .setFooter(`https://discordapp.com/assets/b04ecfe13d61a869b4c47a276b51b634.svg Command It With Alpha v0.1, Please Not Overuse Using This Command!`);
 
     message.channel.send(ballembed)
 
