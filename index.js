@@ -177,19 +177,16 @@ bot.on("message", async message => {
   }
 
   if(cmd === `${prefix}help`){
-    let embed = new Discord.RichEmbed()
-    .setDescription("**BOT HELP**")
+    let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
-    .addField("/ban", "Banned The Player, CMake Sure There Is Already A Channel Called **admin-log**")
-    .addField("/kick", "Kick The Player, Make Sure There Is Already A Channel Called **admin-log**")
-    .addField("/report", "Report The Player, Make Sure There Is Already A Channel Called **moderator-logs**")
-    .addField("/botinfo", "To View Bot Information")
-    .addField("/serverinfo", "To See Information About This Server")
-    .addField("/afk", "For Afk")
+    .setDescription("**Prefix : `!`**")
+    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` |")
+    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` |")
+    .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
-    message.channel.send("**Check Your PM!**")
-    return message.author.send(embed);           
+    message.channel.send("**:mailbox_with_mail: **Sending Help To Your DM!**")
+    return message.author.send(helpembed);           
   }
 
   if(cmd === `${prefix}ping`){
