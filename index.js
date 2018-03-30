@@ -44,6 +44,9 @@ bot.on("message", async message => {
     if(!kickChannel) return message.channel.send("No Named Channel `mod-log`.");
 
     message.guild.member(kUser).kick(kReason);
+    
+    message.delete().catch(O_o=>{});
+    message.channel.send(":white_check_mark:  | **Succes Kicked Players**")
     kickChannel.send(kickEmbed);
 
     return;
@@ -70,6 +73,9 @@ bot.on("message", async message => {
     if(!incidentchannel) return message.channel.send("No Named Channel `mod-log`.");
 
     message.guild.member(bUser).ban(bReason);
+    
+    message.delete().catch(O_o=>{});
+    message.channel.send(":white_check_mark:  | **Succes Banned Players**")
     incidentchannel.send(banEmbed);
 
 
