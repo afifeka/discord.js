@@ -185,7 +185,7 @@ bot.on("message", async message => {
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
-    message.channel.send("**:mailbox_with_mail: **Sending Help To Your DM!**")
+    message.channel.send(":mailbox_with_mail: **Sending Help To Your DM!**")
     return message.author.send(helpembed);           
   }
 
