@@ -85,9 +85,9 @@ bot.on("message", async message => {
     return;
   }
   
-  if(cmd === `${prefix}asked`){
+  if(cmd === `${prefix}kecoa`){
     if(!args[2]) return message.reply("Plase ask a full question");
-    let replies = ["Yes", "No", "I Don't Know", "Did You Say What?", "Correctly", "Not At All"];
+    let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Apa Yang Kamu Bilang?", "Sangat Benar", "Sangat Salah"];
 
     let result = Math.floor((Math.random() * replies.length));
     let question = args.slice(1).join(" ");
@@ -97,7 +97,7 @@ bot.on("message", async message => {
     .setColor("#8d09f1")
     .addField(":question: | Question", question)
     .addField(":envelope_with_arrow: | Answer", replies[result])
-    .setFooter(`https://discordapp.com/assets/b04ecfe13d61a869b4c47a276b51b634.svg Command It With Alpha v0.1, Please Not Overuse Using This Command!`);
+    .setFooter("Command It With Alpha v0.1, Please Not Overuse Using This Command!");
 
     message.channel.send(ballembed)
 
@@ -201,7 +201,7 @@ bot.on("message", async message => {
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
     .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` |")
-    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` |")
+    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question) |")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
