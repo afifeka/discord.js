@@ -61,13 +61,12 @@ bot.on("message", async message => {
     if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(":negative_squared_cross_mark: **| Failed To Banned This Person!**");
 
     let banEmbed = new Discord.RichEmbed()
-    .setDescription("~Ban~")
-    .setColor("#bc0000")
-    .addField("Banned User", `${bUser} with ID ${bUser.id}`)
-    .addField("Banned By", `<@${message.author.id}> with ID ${message.author.id}`)
-    .addField("Banned In", message.channel)
-    .addField("Time", message.createdAt)
-    .addField("Reason", bReason);
+    .setDescription("**BANNED**")
+    .setColor("#f80a0a")
+    .addField(":bust_in_silhouette: | Player Banned", `${bUser} with ID ${bUser.id}`)
+    .addField(":bust_in_silhouette: | Banned By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField(":no_entry: | Reason", bReason);
+
 
     let incidentchannel = message.guild.channels.find(`name`, "mod-log");
     if(!incidentchannel) return message.channel.send("No Named Channel `mod-log`.");
