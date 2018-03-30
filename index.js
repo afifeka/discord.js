@@ -66,14 +66,14 @@ bot.on("message", async message => {
     .addField(":no_entry: | Reason", bReason);
 
 
-    let incidentchannel = message.guild.channels.find(`name`, "mod-log");
-    if(!incidentchannel) return message.channel.send("No Named Channel `mod-log`.");
+    let modlogchannel = message.guild.channels.find(`name`, "mod-log");
+    if(!modlogchannel) return message.channel.send("No Named Channel `mod-log`.");
 
     message.guild.member(bUser).ban(bReason);
     
     message.delete().catch(O_o=>{});
     message.channel.send(":white_check_mark:  | **Succes Banned Players**")
-    incidentchannel.send(banEmbed);
+    modlogchannel.send(banEmbed);
 
 
     return;
