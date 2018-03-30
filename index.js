@@ -153,7 +153,7 @@ bot.on("message", async message => {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You Are Not Enough Permission For This Command!.");
     if(!args[0]) return message.channel.send("Input How Many Messages That Want To Delete!");
     message.channel.bulkDelete(args[0]).then(() => {
-    message.channel.send(`Clear ${args[0]} messages.`).then(msg => msg.delete(2000));
+    message.channel.send(`:wastebasket: **| Clear ${args[0]} Messages!**`).then(msg => msg.delete(2000));
    })
   
   }
