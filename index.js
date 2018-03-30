@@ -7,7 +7,12 @@ const bot = new Discord.Client({disableEveryone: true});
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
-  bot.user.setActivity("!help | Beta v0.2", "Fixed Warn Command!", {type: "Playing"});
+  function randomStatus() {
+        let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Added Question Command!', `Usage !help`]
+        let rstatus = Math.floor(Math.random() * status.length);
+        bot.user.setActivity(status[rstatus], {type: 'PLAYING'});
+
+   }; setInterval(randomStatus, 40000)
  
   
 });
