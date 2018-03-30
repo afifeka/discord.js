@@ -137,13 +137,14 @@ bot.on("message", async message => {
 
     let bicon = bot.user.displayAvatarURL;
     let botembed = new Discord.RichEmbed()
-    .setDescription("Bot Information")
-    .setColor("#15f153")
+    .setDescription("**BOT INFORMATION**")
+    .setColor("#37FF00")
     .setThumbnail(bicon)
-    .addField("Bot Name", bot.user.username)
-    .addField("Created On", bot.user.createdAt)
-    .addField("Discord Server", "➭ [https://discord.gg/aFTvrnr]")
-    .addField("Developed By", "『AfifGaming』#9369")
+    .addField(":tools: |Bot Name", bot.user.username)
+    .addField(":alarm_clock: |Created On", bot.user.createdAt)
+    .addField(":ledger: | Discord Server", "➭ [https://discord.gg/aFTvrnr]")
+    .addField(":earth_asia: | Location", "Indonesian")
+    .addField(":bust_in_silhouette: | Developed By", "『AfifGaming』#9369")
     .setFooter("Beta v0.2 | Discord.js");
 
     return message.channel.send(botembed);
