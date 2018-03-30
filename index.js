@@ -29,7 +29,7 @@ bot.on("message", async message => {
     if(!kUser) return message.channel.send(":warning: **| Please Tag Player To Be Kicked!**");
     let kReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
-    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(":negative_squared_cross_mark: **| Failed To Kicked This Person!**");
 
     let kickEmbed = new Discord.RichEmbed()
     .setDescription("~Kick~")
@@ -58,7 +58,7 @@ bot.on("message", async message => {
     if(!bUser) return message.channel.send(":warning: **| Please Tag Player To Be Banned!**");
     let bReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
-    if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+    if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(":negative_squared_cross_mark: **| Failed To Banned This Person!**");
 
     let banEmbed = new Discord.RichEmbed()
     .setDescription("~Ban~")
