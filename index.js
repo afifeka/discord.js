@@ -86,7 +86,7 @@ bot.on("message", async message => {
   }
   
   if(cmd === `${prefix}tanya`){
-    if(!args[2]) return message.reply("Plase ask a full question");
+    if(!args[0]) return message.reply("Plase ask a full question");
     let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Bilang Apa Kamu Tadi?"];
 
     let result = Math.floor((Math.random() * replies.length));
