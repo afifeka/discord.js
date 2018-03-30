@@ -247,7 +247,7 @@ bot.on("message", async message => {
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
     .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` |")
-    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question) |")
+    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)`|")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
