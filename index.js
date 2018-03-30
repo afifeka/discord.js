@@ -74,6 +74,13 @@ bot.on("message", async message => {
 
     return;
   }
+  
+  if(cmd === `${prefix}stats`){
+    message.channel.send(globalUsers)
+
+    return;
+  }
+
 
 
   if(cmd === `${prefix}report`){
