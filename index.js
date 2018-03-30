@@ -32,13 +32,11 @@ bot.on("message", async message => {
     if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(":negative_squared_cross_mark: **| Failed To Kicked This Person!**");
 
     let kickEmbed = new Discord.RichEmbed()
-    .setDescription("~Kick~")
-    .setColor("#e56b00")
-    .addField("Kicked User", `${kUser} with ID ${kUser.id}`)
-    .addField("Kicked By", `<@${message.author.id}> with ID ${message.author.id}`)
-    .addField("Kicked In", message.channel)
-    .addField("Tiime", message.createdAt)
-    .addField("Reason", kReason);
+    .setDescription("**KICKED**")
+    .setColor("#f80a0a")
+    .addField(":bust_in_silhouette: | Player Kicked", `${kUser} with ID ${kUser.id}`)
+    .addField(":bust_in_silhouette: | Kicked By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField(":no_entry: | Reason", kReason);
 
     let kickChannel = message.guild.channels.find(`name`, "mod-log");
     if(!kickChannel) return message.channel.send("No Named Channel `mod-log`.");
