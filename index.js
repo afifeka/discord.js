@@ -140,11 +140,11 @@ bot.on("message", async message => {
     .setDescription("**BOT INFORMATION**")
     .setColor("#37FF00")
     .setThumbnail(bicon)
-    .addField(":tools: |Bot Name", bot.user.username)
-    .addField(":alarm_clock: |Created On", bot.user.createdAt)
-    .addField(":ledger: | Discord Server", "➭ [https://discord.gg/aFTvrnr]")
-    .addField(":earth_asia: | Location", "Indonesian")
-    .addField(":bust_in_silhouette: | Developed By", "『AfifGaming』#9369")
+    .addField(":tools: | Bot Name", `**${bot.user.username}**`)
+    .addField(":alarm_clock: | Created On", `**${bot.user.createdAt}**`)
+    .addField(":ledger: | Discord Server", "**➭ [https://discord.gg/aFTvrnr]**")
+    .addField(":earth_asia: | Location", "**Indonesian**")
+    .addField(":bust_in_silhouette: | Developed By", "**『AfifGaming』#9369**")
     .setFooter("Beta v0.2 | Discord.js");
 
     return message.channel.send(botembed);
