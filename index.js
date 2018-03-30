@@ -7,7 +7,8 @@ const bot = new Discord.Client({disableEveryone: true});
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
-  bot.user.setActivity("!help | Beta v0.1", {type: "Streaming"});
+   bot.user.setActivity("!help | Beta v0.1", "Fixed Warn Command!", {type: "Streaming"});
+ 
   
 });
 
