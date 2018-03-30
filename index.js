@@ -84,6 +84,23 @@ bot.on("message", async message => {
 
     return;
   }
+  
+  if(cmd === `${prefix}tanya`){
+    if(!args[2]) return message.reply("Plase ask a full question");
+    let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Bilang Apa Kamu Tadi?"];
+
+    let result = Math.floor((Math.random() * replies.length));
+    let question = args.slice(1).join(" ");
+
+    let ballembed = new Discord.RichEmbed()
+    .setAuthor(message.author.tag)
+    .setColor("#8d09f1")
+    .addField("Pertanyaan", question)
+    .addField("Jawaban!", replies[result]);
+
+     message.channel.send(ballembed)
+
+  }
 
 
 
