@@ -85,9 +85,9 @@ bot.on("message", async message => {
     return;
   }
   
-  if(cmd === `${prefix}tanya`){
-    if(!args[0]) return message.reply("Plase ask a full question");
-    let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Bilang Apa Kamu Tadi?"];
+  if(cmd === `${prefix}asked`){
+    if(!args[2]) return message.reply("Plase ask a full question");
+    let replies = ["Yes", "No", "I Don't Know", "Did You Say What?", "Correctly", "Not At All"];
 
     let result = Math.floor((Math.random() * replies.length));
     let question = args.slice(1).join(" ");
@@ -95,13 +95,13 @@ bot.on("message", async message => {
     let ballembed = new Discord.RichEmbed()
     .setAuthor(message.author.tag)
     .setColor("#8d09f1")
-    .addField("Pertanyaan", question)
-    .addField("Jawaban!", replies[result]);
+    .addField(":question: | Question", question)
+    .addField(":envelope_with_arrow: | Answer", replies[result])
+    .setFooter(":warning: Command It With Alpha v0.1, Please Not Overuse Using This Command!");
 
-     message.channel.send(ballembed)
+    message.channel.send(ballembed)
 
   }
-
 
 
   if(cmd === `${prefix}report`){
