@@ -93,11 +93,10 @@ bot.on("message", async message => {
     let question = args.slice(1).join(" ");
 
     let ballembed = new Discord.RichEmbed()
-    .setAuthor(message.author.tag)
     .setColor("#8d09f1")
     .addField(":question: | Question", question)
     .addField(":envelope_with_arrow: | Answer", replies[result])
-    .setFooter("Command It With Alpha v0.1, Please Not Overuse Using This Command!");
+    .setFooter(`**Question By ${message.author.tag}**`);
 
     message.channel.send(ballembed)
 
