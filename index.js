@@ -86,7 +86,7 @@ bot.on("message", async message => {
   }
   
   if(cmd === `${prefix}kecoa`){
-    if(!args[2]) return message.reply("Plase ask a full question");
+    if(!args[2]) return message.reply("**Usage `!kecoa apakah <Question>`**");
     let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Apa Yang Kamu Bilang?", "Sangat Benar", "Sangat Salah"];
 
     let result = Math.floor((Math.random() * replies.length));
