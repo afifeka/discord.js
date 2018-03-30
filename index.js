@@ -99,13 +99,10 @@ bot.on("message", async message => {
     let rreason = args.join(" ").slice(22);
 
     let reportEmbed = new Discord.RichEmbed()
-    .setDescription("Reports")
-    .setColor("#15f153")
-    .addField("Reported User", `${rUser} with ID: ${rUser.id}`)
-    .addField("Reported By", `${message.author} with ID: ${message.author.id}`)
-    .addField("Channel", message.channel)
-    .addField("Time", message.createdAt)
-    .addField("Reason", rreason)
+    .setDescription("**REPORTS**")
+    .setColor("#f3d804")
+    .addField(":bust_in_silhouette: **| Player**", `**${rUser} | ID: ${rUser.id}**`)
+    .addField(":mag: **| Reason**", rreason)
     .setFooter("Beta v0.2 | Discord.js");
 
     let reportschannel = message.guild.channels.find(`name`, "mod-log");
