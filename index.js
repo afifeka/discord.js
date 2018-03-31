@@ -54,6 +54,17 @@ bot.on("message", async message => {
 
     return;
   }
+  
+  if(cmd === `${prefix}test`){
+
+    let testembed = new Discord.RichEmbed()
+    .setDescription("**STATS**")
+    .setColor("#00fa3d")
+    .addField(":mag: | Total Server", `${bot.guilds.size} Servers!`)
+  
+    message.channel.send(testembed);
+  }
+
 
   if(cmd === `${prefix}ban`){
 
