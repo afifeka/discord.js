@@ -84,10 +84,19 @@ bot.on("message", async message => {
     return;
   }
   
-  if(cmd === `${prefix}stats`){
-    message.channel.send(globalUsers)
+  if (cmd === `${prefix}stats`){
 
-    return;
+    let embed = new Discord.RichEmbed()
+    .setDescription("**STATS**")
+    .setColor("#00fa3d")
+    .addField(":mag: | Total Server", `${bot.guilds.size} Servers!`)
+    .addField(":satellite: | Total Channels", `${bot.channels.size} Channels`)
+    .addField(":busts_in_silhouette: | Total Users", `${bot.user.size.toLocaleString()}`)
+    .addField("Library", "Discord.js")
+    .addField("Memory Usage" , "120Mb")
+    .setFooter("This Command Has Released")
+
+    return message.channel.send(embed);
   }
   
   if(cmd === `${prefix}addrole`){
