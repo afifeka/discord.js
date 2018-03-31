@@ -294,7 +294,7 @@ bot.on("message", async message => {
 
     message.delete()
     message.guild.members.get(message.author.id).setNickname("AFK |" + message.author.username);
-    message.channel.send("**:bust_in_silhouette: | User Has Afk >>**" + `**${message.author} **` + `**For : ${afkuser}**`)
+    message.channel.send("**:bust_in_silhouette: | User Has Afk >>** " + `${message.author} ` + `**For : ${afkuser}**`)
 
      return;
   }
