@@ -85,21 +85,23 @@ bot.on("message", async message => {
     return;
   }
   
+  
   if (cmd === `${prefix}info`){
 
     let testembed = new Discord.RichEmbed()
     .setDescription("**STATS**")
     .setColor("#00fa3d")
     .addField(":mag: | Total Server", `${bot.guilds.size} Servers!`)
-    .addField(":satellite: | Total Channels", `${bot.channels.size} Channels`)
-    .addField(":busts_in_silhouette: | Total Users", `${bot.user.size.toLocaleString()}`)
-    .addField("Library", "Discord.js")
-    .addField("Memory Usage" , "120Mb")
+    .addField(":satellite: | Total Channels", `${bot.channels.size} Channels!`)
+    .addField(":busts_in_silhouette: | Total Users", `${bot.users.size.toLocaleString()} Users!`)
+    .addField(":notebook_with_decorative_cover: | Library", "Discord.js")
+    .addField(":floppy_disk: | Memory Usage" , "120Mb")
     .setFooter("This Command Has Released")
 
     message.channel.send(testembed);
   }
   
+
   if(cmd === `${prefix}addrole`){
     if (!message.member.hasPermission("MANAGE_ROLES")) return errors.noPerms(message, "MANAGE_ROLES");
     if (args[0] == "help") {
