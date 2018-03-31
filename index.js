@@ -1,5 +1,6 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
+const cpu = process.cpuUsage().system / 1024 / 1024;
 const ms = require("ms");
 
 const bot = new Discord.Client({disableEveryone: true});
@@ -95,7 +96,7 @@ bot.on("message", async message => {
     .addField(":satellite: | Total Channels", `${bot.channels.size} Channels!`)
     .addField(":busts_in_silhouette: | Total Users", `${bot.users.size.toLocaleString()} Users!`)
     .addField(":notebook_with_decorative_cover: | Library", "Discord.js")
-    .addField(":floppy_disk: | Memory Usage" , "120Mb")
+    .addField(":bulb: | CPU Usage", `${Math.round(cpu * 100) / 100}%`, true)
     .setFooter("This Command Has Released")
 
     message.channel.send(testembed);
