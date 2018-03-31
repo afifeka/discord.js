@@ -96,7 +96,8 @@ bot.on("message", async message => {
     .addField("Memory Usage" , "120Mb")
     .setFooter("This Command Has Released")
 
-    return message.channel.send(embed);
+    message.channel.send(embed);
+    return;
   }
   
   if(cmd === `${prefix}addrole`){
