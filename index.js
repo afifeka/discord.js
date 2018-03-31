@@ -151,8 +151,8 @@ bot.on("message", async message => {
     }
   }
   
-  if(cmd === `${prefix}kecoa`){
-    if(!args[2]) return message.reply("**Usage `!kecoa apakah <Question>`**");
+  if(cmd === `${prefix}ikan`){
+    if(!args[2]) return message.reply("**Usage `!ikan apakah <Question>`**");
     let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Apa Yang Kamu Bilang?", "Sangat Benar", "Sangat Salah"];
 
     let result = Math.floor((Math.random() * replies.length));
@@ -162,7 +162,7 @@ bot.on("message", async message => {
     .setColor("#8d09f1")
     .addField(":question: | Question", question)
     .addField(":envelope_with_arrow: | Answer", replies[result])
-    .setFooter(`**Question By ${message.author.tag}**`);
+    .setFooter(`Question By ${message.author.tag}`);
 
     message.channel.send(ballembed)
 
