@@ -8,7 +8,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Fixed Warned Command!', `Usage !help`]
+        let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Fix Warned Command!', `Usage !help`]
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
