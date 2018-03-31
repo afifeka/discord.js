@@ -293,11 +293,12 @@ bot.on("message", async message => {
     let afkuser = args.join(" ").slice(0);
 
     message.delete()
-    message.guild.members.get(message.author.id).setNickname("Afk | " + message.author.username);
-    message.channel.send("**AFK » **" + `${message.author} ` + afkuser)
+    message.guild.members.get(message.author.id).setNickname("AFK |" + message.author.username);
+    message.channel.send("**:bust_in_silhouette: | User Has Afk >>**" + `**${message.author} **` + `**For : ${afkuser}**`)
 
      return;
   }
+
 
   if(cmd === `${prefix}help`){
     let helpembed = new Discord.RichEmbed()
