@@ -84,7 +84,7 @@ bot.on("message", async message => {
     return;
   }
   
-  if (cmd === `${prefix}stats`){
+  if (cmd === `${prefix}info`){
 
     let embed = new Discord.RichEmbed()
     .setDescription("**STATS**")
