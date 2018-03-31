@@ -8,7 +8,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Added Question Command!', `Usage !help`]
+        let status = [`On ${bot.guilds.size} Guilds.`, `On ${bot.users.size.toLocaleString()} Users.`, 'Added Add/Remove Role Command!', `Usage !help`]
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
@@ -251,8 +251,8 @@ bot.on("message", async message => {
     let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
-    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` |")
-    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)`|")
+    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` | `!addrole help` | `!removerole help` | `!userinfo` |")
+    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` |")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
