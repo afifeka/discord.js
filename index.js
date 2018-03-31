@@ -55,16 +55,6 @@ bot.on("message", async message => {
     return;
   }
   
-  if(cmd === `${prefix}test`){
-
-    let testembed = new Discord.RichEmbed()
-    .setDescription("**STATS**")
-    .setColor("#00fa3d")
-    .addField(":mag: | Total Server", `${bot.guilds.size} Servers!`)
-  
-    message.channel.send(testembed);
-  }
-
 
   if(cmd === `${prefix}ban`){
 
@@ -97,7 +87,7 @@ bot.on("message", async message => {
   
   if (cmd === `${prefix}info`){
 
-    let embed = new Discord.RichEmbed()
+    let testembed = new Discord.RichEmbed()
     .setDescription("**STATS**")
     .setColor("#00fa3d")
     .addField(":mag: | Total Server", `${bot.guilds.size} Servers!`)
@@ -107,8 +97,7 @@ bot.on("message", async message => {
     .addField("Memory Usage" , "120Mb")
     .setFooter("This Command Has Released")
 
-    message.channel.send(embed);
-    return;
+    message.channel.send(testembed);
   }
   
   if(cmd === `${prefix}addrole`){
