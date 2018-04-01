@@ -280,8 +280,8 @@ bot.on("message", async message => {
 
       let bicon = bot.user.displayAvatarURL;
       let purgemod = new Discord.RichEmbed()
-      .setDescription("🗑 | Purge")
-      .setColor("#414c56")
+      .setDescription("**PURGE**")
+      .setColor("#0283f8")
       .addField("Executor:", `${message.author}`, true)
       .addField("Purge:", `${args[0]}`, true)
       .setFooter("This Command Error?, Fast DM 『AfifGaming』#9369 To Fix This Error!");
