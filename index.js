@@ -9,7 +9,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`On ${bot.guilds.size} Guild In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Update To Beta v0.3', `Usage !help`]
+        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Update Clear To Purge!', `Help? | !help`]
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
@@ -269,15 +269,30 @@ bot.on("message", async message => {
 
     return message.channel.send(botembed);
   }
-
-
-  if(cmd === `${prefix}clear`){
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You Are Not Enough Permission For This Command!.");
-    if(!args[0]) return message.channel.send("Input How Many Messages That Want To Delete!");
-    message.channel.bulkDelete(args[0]).then(() => {
-    message.channel.send(`:wastebasket: **| Clear ${args[0]} Messages!**`).then(msg => msg.delete(2000));
-   })
   
+  
+  if(cmd === `${prefix}purge`){
+    message.delete()
+    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, You Don't Have A Permissions To Do This!");
+    if(!args[0]) return message.channel.send("Please Give The Number");
+    message.channel.bulkDelete(args[0]).then(() => {
+      message.channel.send(`🗑 | Succed Cleared ${args[0]} messages.`).then(msg => msg.delete(2000))
+
+      let bicon = bot.user.displayAvatarURL;
+      let purgemod = new Discord.RichEmbed()
+      .setDescription("🗑 | Purge")
+      .setColor("#414c56")
+      .addField("Executor:", `${message.author}`, true)
+      .addField("Purge:", `${args[0]}`, true)
+      .setFooter("This Command Error?, Fast DM 『AfifGaming』#9369 To Fix This Error!");
+
+      let modlog = message.guild.channels.find(`name`, "mod-log");
+      if(!modlog) return message.channel.send("Can't Find mod-log channel.");
+
+      modlog.send(purgemod);
+
+
+    })
   }
 
 
@@ -304,7 +319,7 @@ bot.on("message", async message => {
     let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
-    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!clear` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
+    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!purge` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
     .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` |")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
