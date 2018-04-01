@@ -4,6 +4,7 @@ const cpu = process.cpuUsage().system / 1024 / 1024;
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
 const google = require("google");
+const blacklist = require('../Storage/blacklist.json')
 
 const bot = new Discord.Client({disableEveryone: true});
 
