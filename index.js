@@ -274,7 +274,7 @@ bot.on("message", async message => {
   }
   
  
-  if(cmd === `${prefix}botinfo`){
+  if(cmd === `${prefix}info`){
 
     let bicon = bot.user.displayAvatarURL;
     let botembed = new Discord.RichEmbed()
@@ -283,7 +283,7 @@ bot.on("message", async message => {
     .setThumbnail(bicon)
     .addField(":tools: | Bot Name", `**${bot.user.username}**`)
     .addField(":alarm_clock: | Created On", `**${bot.user.createdAt}**`)
-    .addField(":ledger: | Discord Server", "**➭ [https://discord.gg/aFTvrnr]**")
+    .addField(":ledger: | Discord Server", "**➭ [https://discord.gg/w829yw8]**")
     .addField(":earth_asia: | Location", "**Indonesian**")
     .addField(":bust_in_silhouette: | Developed By", "**『AfifGaming』#9369**")
     .setFooter("Beta v0.2 | Discord.js");
@@ -341,7 +341,7 @@ bot.on("message", async message => {
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
     .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!purge` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
-    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` | `!stats` |`")
+    .addField(":earth_asia: General Command", "| `!info` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` | `!stats` |`")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
