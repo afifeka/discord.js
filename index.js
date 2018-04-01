@@ -89,7 +89,7 @@ bot.on("message", async message => {
   }
   
   
-  if (cmd === `${prefix}info`){
+  if (cmd === `${prefix}stats`){
 
     let testembed = new Discord.RichEmbed()
     .setDescription("**STATS**")
@@ -322,7 +322,7 @@ bot.on("message", async message => {
     .setColor("#15f153")
     .setDescription("**Prefix : `!`**")
     .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!purge` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
-    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` |")
+    .addField(":earth_asia: General Command", "| `!botinfo` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` | `!stats` |`")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
