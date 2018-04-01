@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const cpu = process.cpuUsage().system / 1024 / 1024;
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
+const google = require("google");
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -455,348 +456,121 @@ bot.on("message", async message => {
       message.channel.send(`<@${tomute.id}> has been unmuted!`);
     }, ms(mutetime));
   }
-  
-  
-    if(cmd === `${prefix}play`) {
-    const args1 = message.content.split(' ');
-    const searchString = args1.slice(1).join(' ');
-    const url = args1[1] ? args1[1].replace(/<(.+)>/g, '$1') : '';
-    const serverQueue = queue.get(message.guild.id);
-  
-  const voiceChannel = message.member.voiceChannel;
-      if (!voiceChannel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
-      const permissions = voiceChannel.permissionsFor(bot.user);
-      if (!permissions.has('CONNECT')) {
-        return message.channel.send('I cannot connect to your voice channel, make sure I have the proper permissions!');
-      } 
-      if (!permissions.has('SPEAK')) {
-        return message.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
-      }
-  
-      if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-        const playlist = await youtube.getPlaylist(url);
-        const videos = await playlist.getVideos();
-        for (const video of Object.values(videos)) {
-          const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
-          await handleVideo(video2, message, voiceChannel, true); // eslint-disable-line no-await-in-loop
+
+	
+  if(cmd === `${prefix}google`){
+	      if (blacklist[message.author.id]) {
+        message.channel.send("Im sorry, but you are blacklisted from using this command due to searching up pornography!")
+        return;
+    }
+    
+    google.resultsPerPage = 25
+    let object = args;
+    google.protocol = 'https';
+    
+    const args2 = message.content.split(' ').slice(1).join(' ');
+    
+    if(!args2) {
+            var embed = new Discord.RichEmbed()
+             		.setTitle("ERROR!")
+             		.setColor("RANDOM")
+             		.setDescription("No term(s) was found for me to search!")
+             		.setFooter("Powered By Google", "http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1000px-Google_%22G%22_Logo.svg.png")
+             		
+             		message.channel.send({embed : embed});
+             		    return;
         }
-        return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
-      } else {
-        try {
-          var video = await youtube.getVideo(url);
-        } catch (error) {
-          try {
-            var videos = await youtube.searchVideos(searchString, 10);
-            let index = 0;
-            
-            
-            const Embed2 = new Discord.RichEmbed()
-            .setTitle(":musical_note: Song Selection :musical_note:")
-            .setDescription(videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n'))
-            .setColor("#503d82")
-            .setFooter("Please provide a value to select one of the search results ranging from 1-10.")
-            
-            
-            let msgtoDelete = await message.channel.send({embed: Embed2});
-            // eslint-disable-next-line max-depth
-            try {
-              var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
-                maxMatches: 1,
-                time: 10000,
-                errors: ['time']
-              });
-              msgtoDelete.delete();
-            } catch (err) {
-              console.error(err);
-              const noPick = new Discord.RichEmbed()
-              .setDescription("No or invalid value entered, cancelling video selection.")
-              .setColor("#503d82")
-              message.channel.send({embed: noPick});
-              msgtoDelete.delete()
-              return;
-            }
-            const videoIndex = parseInt(response.first().content);
-            var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-          } catch (err) {
-            console.error(err);
-            return message.channel.send('🆘 I could not obtain any search results.');
-          } 
+
+        
+    google(object, function (err, res){
+        if (err) console.error(err)
+        
+        
+        var link = res.links[1];
+        var link2 = res.links[2];
+        var link3 = res.links[3];
+        let test = `${link.title}\n${link.href}`;
+        let test2 = `${link2.title}\n${link2.href}`;
+        let test3 = `${link3.title}\n${link3.href}`;
+        
+        if(!link.title || link.title == undefined || link.title == null) {
+            test = "Nothing Found, Sorry";
         }
-        return handleVideo(video, message, voiceChannel);
-      }
-  
-      // Time for the functions
-  
-  async function handleVideo(video, message, voiceChannel, playlist = false) {
-    const serverQueue = queue.get(message.guild.id);
-    console.log(video);
-    const song = {
-      id: video.id,
-      title: video.title,
-      url: `https://www.youtube.com/watch?v=${video.id}`,
-      durationh: video.duration.hours,
-      durationm: video.duration.minutes,
-      durations: video.duration.seconds,
-    };
-    if (!serverQueue) {
-      const queueConstruct = { 
-        textChannel: message.channel,
-        voiceChannel: voiceChannel,
-        connection: null,
-        skippers: [],
-        songs: [],
-        volume: 5,
-        playing: true
-      };
-      queue.set(message.guild.id, queueConstruct);
-  
-      queueConstruct.songs.push(song);
-  
-      try {
-        var connection = await voiceChannel.join();
-        queueConstruct.connection = connection;
-        play(message.guild, queueConstruct.songs[0]);
-      } catch (error) {
-        console.error(`I could not join the voice channel: ${error}`);
-        queue.delete(message.guild.id);
-        return message.channel.send(`I could not join the voice channel: ${error}`);
-      }
-    } else {
-      serverQueue.songs.push(song);
-      console.log(serverQueue.songs);
-      if (playlist) return undefined;
-      else return message.channel.send(`✅ **${song.title}** has been added to the queue!`);
-    }
-    return undefined;
-  }
-  
-  function play(guild, song) {
-    const serverQueue = queue.get(guild.id);
-  
-    if (!song) {
-      serverQueue.voiceChannel.leave();
-      queue.delete(guild.id);
-      return;
-    }
-    console.log(serverQueue.songs);
-  
-  const dispatcher = serverQueue.connection.playStream(yt(song.url))
-          .on('end', reason => {
-              if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-              else console.log(reason);
-              serverQueue.songs.shift();
-              setTimeout(() => {
-                  play(guild, serverQueue.songs[0]);
-              }, 250);
-          })
-          .on('error', error => console.error(error));
-      dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  
-      //Modified playing messages that give you the song duration!
-  
-      let durations = song.durations - 1
-    var secondslength = Math.log(durations) * Math.LOG10E + 1 | 0;
-    var mlength = Math.log(song.durationm) * Math.LOG10E + 1 | 0;
-    if(song.durationh !== 0) {
-      if(secondslength == 1 || secondslength == 0) {
-        if(mlength == 1 || mlength == 0) {
-        return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationh}:0${song.durationm}:0${durations})`);
-    }}}
-    if(song.durationh !== 0) {
-      if(secondslength == 1 || secondslength == 0) {
-        if(mlength !== 1 || mlength !== 0) {
-        return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationh}:${song.durationm}:0${durations})`);
-      }}};
-      if(song.durationh !== 0) {
-        if(mlength == 1 || mlength == 0) {
-          if(secondslength !== 1 || secondslength !== 0) {
-          return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationh}:0${song.durationm}:${durations})`);
-      }}}
-      if(song.durationh !== 0) {
-        if(mlength !== 1 || mlength !== 0) {
-          if(secondslength !== 1 || secondslength !== 0) {
-          return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationh}:${song.durationm}:${durations})`);
-      }}}
-      if(song.durationh == 0 && song.durationm !== 0) {
-        if(secondslength == 1 || secondslength == 0) {
-          return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationm}:0${durations})`);
-      }}
-      if(song.durationh == 0 && song.durationm !== 0) {
-        if(secondslength !== 1 || secondslength !== 0) {
-          return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${song.durationm}:${durations})`);
-      }}
-      if(song.durationh == 0 && song.durationm == 0 && song.durations !== 0) {
-        return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}** (${durations} Seconds)`);
-      } else {
-        return serverQueue.textChannel.send(`🎶 Now playing: **${song.title}**`);
-      }
-    }
-  }
-
-if(cmd === `${prefix}skip`){
-    const prefix = prefixes[message.guild.id].prefix;  
-    const args1 = message.content.split(' ');
-	const searchString = args1.slice(1).join(' ');
-	const url = args1[1] ? args1[1].replace(/<(.+)>/g, '$1') : '';
-	const serverQueue = queue.get(message.guild.id);
-
- 
-// Time for the commands
-
-if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
-		if (!serverQueue) return message.channel.send("I can't skip Nothing?");
-      		serverQueue.connection.dispatcher.end('Skip command has been used!');
-		return undefined;
-
-    // Time for the functions
-    async function handleVideo(video, message, voiceChannel, playlist = false) {
-  const serverQueue = queue.get(message.guild.id);
-  console.log(video);
-  const song = {
-    id: video.id,
-    title: video.title,
-    url: `https://www.youtube.com/watch?v=${video.id}`
-  };
-  if (!serverQueue) {
-    const queueConstruct = {
-      textChannel: message.channel,
-      voiceChannel: voiceChannel,
-      connection: null,
-      skippers: [],
-      songs: [],
-      volume: 5,
-      playing: true
-    };
-    queue.set(message.guild.id, queueConstruct);
-
-    queueConstruct.songs.push(song);
-
-    try {
-      var connection = await voiceChannel.join();
-      queueConstruct.connection = connection;
-      play(message.guild, queueConstruct.songs[0]);
-    } catch (error) {
-      console.error(`I could not join the voice channel: ${error}`);
-      queue.delete(message.guild.id);
-      return message.channel.send(`I could not join the voice channel: ${error}`);
-    }
-  } else {
-    serverQueue.songs.push(song);
-    console.log(serverQueue.songs);
-    if (playlist) return undefined;
-    else return message.channel.send(`✅ **${song.title}** has been added to the queue!`);
-  }
-  return undefined;
+        
+        if(!link2.title || link2.title == undefined || link2.title == null) {
+            test2 = "Nothing Found, Sorry";
+        }
+        
+        if(!link3.title || link3.title == undefined || link3.title == null) {
+            test3 = "Nothing Found, Sorry";
+        }
+        
+        if(link.link == null) {
+            test = "Nothing Found, Sorry";
+        }
+        
+        if(link2.link == null) {
+            test2 = "Nothing Found, Sorry";
+        }
+        
+        if(link3.link == null) {
+            test3 = "Nothing Found, Sorry";
+        }
+        const log = bot.channels.get("395639215578284033")
+                var blacklisted = ["porn", "sex", "gay porn", "pussy", "dick", "vagina", "penis", "incest", "loli", "lesbian porn", "pornhub", "xxvideos", "xrated", "exclipt", "x-rated", "moan", "masturbat", "condom", "dildo", "fingering", "tribbing", "oraljob", "blowjob", "anal", "fuck", "hentai", "rule34", "r34", "shit", "sh1t", "knobend", "knob end", "cock", "blow job", "boob", "cunt", "labia", "nigger", "nigga", "twat", "whore"]
+        if (blacklisted.some(word => args2.toLowerCase().includes(word) && !message.channel.nsfw)) {
+            message.delete()
+            const embed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .setFooter("This was sent into your DM's cause it included a blacklisted word, if you searched up something that doesn't seem like it should be blacklisted and does NOT include any blacklisted words, Ex. `Analysis` includes `Anal`, please let us know")
+            .setAuthor("Search Results", `http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1000px-Google_%22G%22_Logo.svg.png`)
+            .addField("Result 1", test)
+            .addField("Result 2", test2)
+            .addField("Result 3", test3)
+            .setTimestamp()
+            .setThumbnail('https://cdn3.iconfinder.com/data/icons/picons-social/57/09-google-128.png')
+            message.author.send({embed});
+            
+            const embed2 = new Discord.RichEmbed()
+            .setTitle(":warning: Google Command DANGER! :warning:")
+            .setColor("#ff0000")
+            .setTimestamp()
+            .addField(":eyes: Someone used the Google Command to search up something bad! :eyes:", "Hopefully this was a mis-understanding!")
+            .addField(":mag: What they searched up :mag:", `***__${args2}__***`)
+            .addField(":man: Message Author :woman:", `***__${message.author.tag}__***`)
+            .addField(":id: User ID :id:", `***__${message.author.id}__***`)
+            .addField("👥 Guild They sent it In 👥", `***__${message.guild.name}__***`)
+            .addField(":prince: Guild Owner :princess:", `***__${message.guild.owner.user.tag}__***`)
+            .addField("If they did this too many times...", "Do pr!gblacklist [ID] to blacklist them!")
+            log.send({embed: embed2})
+            return;
+        } 
+        
+        const embed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .setAuthor("Search Results", `http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1000px-Google_%22G%22_Logo.svg.png`)
+            .addField("Result 1", test)
+            .addField("Result 2", test2)
+            .addField("Result 3", test3)
+            .setTimestamp()
+            .setThumbnail('https://cdn3.iconfinder.com/data/icons/picons-social/57/09-google-128.png')
+            message.channel.send({embed})
+            
+            const embed2 = new Discord.RichEmbed()
+            .setTitle("Google Command")
+            .setColor("RANDOM")
+            .setTimestamp()
+            .setThumbnail(message.author.displayAvatarURL)
+            .addField(":eyes: Someone used the Google Command! :eyes:", "Sending this just to make sure they didnt bypass the filter!")
+            .addField(":mag: What they searched up :mag:", `***__${args2}__***`)
+            .addField(":man: Message Author :woman:", `***__${message.author.tag}__***`)
+            .addField(":id: User ID :id:", `***__${message.author.id}__***`)
+            .addField("👥 Guild They sent it In 👥", `***__${message.guild.name}__***`)
+            .addField(":prince: Guild Owner :princess:", `***__${message.guild.owner.user.tag}__***`)
+            log.send({embed : embed2})
+    })
 }
-
-function play(guild, song) {
-  const serverQueue = queue.get(guild.id);
-
-  if (!song) {
-    serverQueue.voiceChannel.leave();
-    queue.delete(guild.id);
-    return;
-  }
-  console.log(serverQueue.songs);
-
-const dispatcher = serverQueue.connection.playStream(yt(song.url))
-        .on('end', reason => {
-            if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-            else console.log(reason);
-            serverQueue.songs.shift();
-            setTimeout(() => {
-                play(guild, serverQueue.songs[0]);
-            }, 250);
-        })
-        .on('error', error => console.error(error));
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-    serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
-}
-}
-if (cmd === `${prefix}stop`){
-    const prefix = prefixes[message.guild.id].prefix;  
-    const args1 = message.content.split(' ');
-  const searchString = args1.slice(1).join(' ');
-  const url = args1[1] ? args1[1].replace(/<(.+)>/g, '$1') : '';
-  const serverQueue = queue.get(message.guild.id); 
- 
-    if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
-    if (!serverQueue) return message.channel.send("There isn't anything for me to stop for you");
-    serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end('Stop command has been used!');
-    message.channel.send(":stop_button: Music has been stopped!");
-    return undefined; 
-
-    // Time for the functions
-
-async function handleVideo(video, message, voiceChannel, playlist = false) {
-  const serverQueue = queue.get(message.guild.id);
-  console.log(video);
-  const song = {
-    id: video.id,
-    title: video.title,
-    url: `https://www.youtube.com/watch?v=${video.id}`
-  };
-  if (!serverQueue) {
-    const queueConstruct = {
-      textChannel: message.channel,
-      voiceChannel: voiceChannel,
-      connection: null,
-      skippers: [],
-      songs: [],
-      volume: 5,
-      playing: true
-    };
-    queue.set(message.guild.id, queueConstruct);
-
-    queueConstruct.songs.push(song);
-
-    try {
-      var connection = await voiceChannel.join();
-      queueConstruct.connection = connection;
-      play(message.guild, queueConstruct.songs[0]);
-    } catch (error) {
-      console.error(`I could not join the voice channel: ${error}`);
-      queue.delete(message.guild.id);
-      return message.channel.send(`I could not join the voice channel: ${error}`);
-    }
-  } else {
-    serverQueue.songs.push(song);
-    console.log(serverQueue.songs);
-    if (playlist) return undefined;
-    else return message.channel.send(`✅ **${song.title}** has been added to the queue!`);
-  }
-  return undefined;
-}
-
-function play(guild, song) {
-  const serverQueue = queue.get(guild.id);
-
-  if (!song) {
-    serverQueue.voiceChannel.leave();
-    queue.delete(guild.id);
-    return;
-  }
-  console.log(serverQueue.songs);
-
-const dispatcher = serverQueue.connection.playStream(yt(song.url))
-        .on('end', reason => {
-            if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-            else console.log(reason);
-            serverQueue.songs.shift();
-            setTimeout(() => {
-                play(guild, serverQueue.songs[0]);
-            }, 250);
-        })
-        .on('error', error => console.error(error));
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-    serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
-}
-}
-
-
-});
+  
+  
 
 bot.login(process.env.BOT_TOKEN);
