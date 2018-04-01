@@ -3,7 +3,6 @@ const Discord = require("discord.js");
 const cpu = process.cpuUsage().system / 1024 / 1024;
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
-const google = require("google");
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -456,9 +455,7 @@ bot.on("message", async message => {
       message.channel.send(`<@${tomute.id}> has been unmuted!`);
     }, ms(mutetime));
   }
-
-	
-}
+});
   
   
 
