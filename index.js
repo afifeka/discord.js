@@ -3,8 +3,6 @@ const Discord = require("discord.js");
 const cpu = process.cpuUsage().system / 1024 / 1024;
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
-const google = require("google");
-const blacklist = require('../Storage/blacklist.json')
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -27,7 +25,7 @@ bot.on('guildMemberAdd', member => {
   
   if (!channel) return;
   
-  channel.send(`Welcome! ${member} To ${message.guild.name}, Plase Read The Rules And Enjoy The Server! `);
+  channel.send(`${member} Joined The Server!  `);
 });
 
 bot.on('guildMemberRemove', member => {
@@ -36,7 +34,7 @@ bot.on('guildMemberRemove', member => {
   
   if (!channel) return;
   
-  channel.send(`Good Bye ${member} Has Left The Server, Bye Dude.`);
+  channel.send(`${member} Left The Server! `);
 });
 
 
