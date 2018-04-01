@@ -25,7 +25,7 @@ bot.on('guildMemberAdd', member => {
   
   if (!channel) return;
   
-  channel.send(`${member} joined the server`);
+  channel.send(`Welcome! ${member} To ${message.guild.name}, Plase Read The Rules And Enjoy The Server! `);
 });
 
 bot.on('guildMemberRemove', member => {
@@ -34,7 +34,7 @@ bot.on('guildMemberRemove', member => {
   
   if (!channel) return;
   
-  channel.send(`${member} left the server`);
+  channel.send(`Good Bye ${member} Has Left The Server, Bye Dude.`);
 });
 
 
