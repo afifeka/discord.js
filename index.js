@@ -19,6 +19,25 @@ bot.on("ready", async () => {
   
 });
 
+bot.on('guildMemberAdd', member => {
+ 
+  const channel = member.guild.channels.find('name', 'join-left');
+  
+  if (!channel) return;
+  
+  channel.send(`${member} joined the server`);
+});
+
+bot.on('guildMemberRemove', member => {
+ 
+  const channel = member.guild.channels.find('name', 'join-left');
+  
+  if (!channel) return;
+  
+  channel.send(`${member} left the server`);
+});
+
+
 bot.on("message", async message => {
   if(message.author.bot) return;
   if(message.channel.type === "dm") return;
