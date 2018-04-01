@@ -2,7 +2,7 @@
   "name": "Smile",
   "version": "0.5.0",
   "description": "Not associated with snapchat",
-  "main": "bot.js",
+  "main": "index.js",
   "engines": {
     "node": "8.7.0"
   },
