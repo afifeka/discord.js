@@ -9,6 +9,8 @@ const bot = new Discord.Client({disableEveryone: true});
 
 var args = message.content.substring(prefix.length).split(" ");
 
+var servers = {}
+
 function play(connection, message) {
   var server = servers[message.guild.id];
 
@@ -21,8 +23,6 @@ function play(connection, message) {
     else connection.disconnect();
   })
 }
-
-var servers = {};
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
