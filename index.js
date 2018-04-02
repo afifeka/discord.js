@@ -5,6 +5,7 @@ const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
 const YTDL = require("ytdl-core");
 const weather = require("weather-js");
+const got = require("got");
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -539,6 +540,31 @@ bot.on("message", async message => {
         .addField(":wind_blowing_face: Wind Speed :wind_blowing_face:", `**__${result[0].current.windspeed.replace("mph", "Miles Per Hour")}__**`)
         message.channel.send({ embed: embed })
    })};
+  
+  if(cmd === `{$prefix}mcstats`){
+        const server = message.content.split(" ").slice(1).join(" ")
+    if (!server) {
+        var embed = new Discord.RichEmbed()
+        .setColor("RED")
+        .setDescription(":x: **|** You did not include any __Arguments__")
+        message.channel.send({ embed: embed })
+    }
+    const url = await got(`https://api.mcsrvstat.us/1/${server}`, {json: true})
+    if (url.body.ip === "") {
+        var embed = new Discord.RichEmbed()
+        .setColor("RED")
+        .setDescription(":x: **|** That is __Not__ a valid IP")
+        message.channel.send({ embed: embed })
+    }
+    var embed = new Discord.RichEmbed()
+    .setDescription(`Information on **${server}**`)
+    .setColor("#52bcf5")
+    .setThumbnail("https://cdn.worldvectorlogo.com/logos/minecraft-1.svg")
+    .setTimestamp()
+    .addField(":computer: Real IP Adress :computer:", `**__${url.body.ip}__**`)
+    .addField(":computer: Port :computer:", `**__${url.body.port}__**`)
+    message.channel.send({ embed: embed })
+}
 
 });
   
