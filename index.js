@@ -7,6 +7,8 @@ const YTDL = require("ytdl-core");
 
 const bot = new Discord.Client({disableEveryone: true});
 
+var args = message.content.substring(prefix.length).split(" ");
+
 function play(connection, message) {
   var server = servers[message.guild.id];
 
@@ -134,8 +136,7 @@ bot.on("message", async message => {
     .addField(":busts_in_silhouette: | Total Users", `${bot.users.size.toLocaleString()} Users!`)
     .addField(":notebook_with_decorative_cover: | Library", "Discord.js")
     .addField(":bulb: | CPU Usage", `${Math.round(cpu * 100) / 100}%`, true)
-    .addField(":clipboard: | Memory Usage", `${Math.round(used * 100) / 100} MB`)
-    
+    .addField(":clipboard: |\ Memory Usage", `${Math.round(used * 100) / 100} MB`)
     .setFooter("This Command Has Released")
 
     message.channel.send(testembed);
