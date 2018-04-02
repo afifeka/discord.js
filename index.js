@@ -26,7 +26,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Update Clear To Purge!', `Help? | !help`]
+        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Update Clear To Purge!', `Help? | n!help`]
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
@@ -135,6 +135,7 @@ bot.on("message", async message => {
     .addField(":notebook_with_decorative_cover: | Library", "Discord.js")
     .addField(":bulb: | CPU Usage", `${Math.round(cpu * 100) / 100}%`, true)
     .addField(":clipboard: | Memory Usage", `${Math.round(used * 100) / 100} MB`)
+    
     .setFooter("This Command Has Released")
 
     message.channel.send(testembed);
@@ -355,7 +356,7 @@ bot.on("message", async message => {
   if(cmd === `${prefix}help`){
     let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
-    .setDescription("**Prefix : `!`**")
+    .setDescription("**Prefix : `n!`**")
     .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!purge` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
     .addField(":earth_asia: General Command", "| `!info` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` | `!stats` |`")
     .addField(":musical_note: Music Command", "| `Command Not Found!` |")
