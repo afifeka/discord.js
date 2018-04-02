@@ -7,8 +7,6 @@ const YTDL = require("ytdl-core");
 
 const bot = new Discord.Client({disableEveryone: true});
 
-var args = message.content.substring(prefix.length).split(" ");
-
 var servers = {}
 
 function play(connection, message) {
@@ -64,6 +62,7 @@ bot.on("message", async message => {
   let prefix = botconfig.prefix;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
+  var args = message.content.substring(prefix.length).split(" ");
   //let args = messageArray.slice(1);
 
   if(cmd === `${prefix}kick`){
