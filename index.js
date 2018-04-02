@@ -26,7 +26,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Update Clear To Purge!', `Help? | n!help`]
+        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, 'Add Music Command!', `Help? | i!help`]
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
 
@@ -356,10 +356,10 @@ bot.on("message", async message => {
   if(cmd === `${prefix}help`){
     let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
-    .setDescription("**Prefix : `n!`**")
-    .addField(":lock: Moderators Command!", "| `!ban` | `!kick` | `!tempmute` | `!say` | `!purge` | `!news` | `!warn` | `!addrole help` | `!removerole help` |")
-    .addField(":earth_asia: General Command", "| `!info` | `!serverinfo` | `!ping` | `!afk` | `!help` | `!kecoa apakah (question)` | `!userinfo` | `!stats` |`")
-    .addField(":musical_note: Music Command", "| `Command Not Found!` |")
+    .setDescription("**Prefix : `i!`**")
+    .addField(":lock: Moderators Command!", "| `i!ban` | `i!kick` | `i!tempmute` | `i!say` | `i!purge` | `i!news` | `i!warn` | `i!addrole help` | `i!removerole help` |")
+    .addField(":earth_asia: General Command", "| `i!info` | `i!serverinfo` | `i!ping` | `i!afk` | `i!help` | `i!kecoa apakah (question)` | `i!userinfo` | `!stats` |`")
+    .addField(":musical_note: Music Command", "| `i!play` | i!skip`` | `i!stop` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
     message.channel.send(":mailbox_with_mail: **Sending Help To Your DM!**")
