@@ -3,8 +3,24 @@ const Discord = require("discord.js");
 const cpu = process.cpuUsage().system / 1024 / 1024;
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
 const ms = require("ms");
+const YTDL = require("ytdl-core");
 
 const bot = new Discord.Client({disableEveryone: true});
+
+function play(connection, message) {
+  var server = servers[message.guild.id];
+
+  server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
+
+  server.queue.shift();
+
+  server.dispatcher.on("end", function() {
+    if (server.queue[0]) play(connection, message);
+    else connection.disconnect();
+  })
+}
+
+var servers = {};
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
@@ -455,6 +471,43 @@ bot.on("message", async message => {
       message.channel.send(`<@${tomute.id}> has been unmuted!`);
     }, ms(mutetime));
   }
+  
+   if (cmd === `${prefix}play`){
+    if (!args[1]) {
+      message.channel.send("Give Me Link")
+      return;
+    }
+
+    if (!message.member.voiceChannel) {
+      message.channel.send("Plase Join A Voice Channel!")
+      return;
+    }
+
+    if (!servers[message.guild.id]) servers[message.guild.id] = {
+      queue: []
+    };
+
+    var server = servers[message.guild.id];
+
+    server.queue.push(args[1]);
+
+    if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+      play(connection, message);
+    });
+  }
+
+  if (cmd === `${prefix}skip`) {
+    var server = servers[message.guild.id];
+
+    if (server.dispatcher) server.dispatcher.end();
+  }
+
+ if(cmd === `${prefix}stop`){
+    var server = servers[message.guild.id];
+
+    if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+  }
+
 });
   
   
