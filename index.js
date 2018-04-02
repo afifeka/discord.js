@@ -361,7 +361,7 @@ bot.on("message", async message => {
     .setDescription("**Prefix : `i!`**")
     .addField(":lock: Moderators Command!", "| `i!ban` | `i!kick` | `i!tempmute` | `i!say` | `i!purge` | `i!news` | `i!warn` | `i!addrole help` | `i!removerole help` |")
     .addField(":earth_asia: General Command", "| `i!info` | `i!serverinfo` | `i!ping` | `i!afk` | `i!help` | `i!kecoa apakah (question)` | `i!userinfo` | `!stats` |`")
-    .addField(":musical_note: Music Command", "| `i!play` | i!skip`` | `i!stop` |")
+    .addField(":musical_note: Music Command", "| `i!play` | `i!skip` | `i!stop` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
     message.channel.send(":mailbox_with_mail: **Sending Help To Your DM!**")
