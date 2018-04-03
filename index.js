@@ -96,6 +96,26 @@ bot.on("message", async message => {
     return;
   }
   
+  
+   if (cmd === `${prefix}verify`) {
+      let role = message.guild.roles.find(r => r.name === "ENERGY");
+      message.member.addRole(role)
+      if(message.member.roles.has(role.id)) return message.reply("You already have Citizens roles!");
+
+      let acceptlaporan = new Discord.RichEmbed()
+      .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL)
+      .setColor(3447003)
+      .setDescription(`${message.author.tag} has been verified`)
+      .setFooter("Ikan | Beta v2.0")
+
+      let modlog = message.guild.channels.find(`name`, "mod-log");
+      if(!modlog) return message.channel.send("Can't Find mod-log channel.");
+
+      modlog.send(acceptlaporan);
+      message.react("👋");
+      message.author.send(acceptlaporan);
+
+    }
 
   if(cmd === `${prefix}ban`){
 
