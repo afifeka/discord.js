@@ -294,47 +294,6 @@ bot.on("message", async message => {
     return message.channel.send(serverembed);
   }
   
- 
-  if(cmd === `${prefix}info`){
-
-    let bicon = bot.user.displayAvatarURL;
-    let botembed = new Discord.RichEmbed()
-    .setDescription("**BOT INFORMATION**")
-    .setColor("#37FF00")
-    .setThumbnail(bicon)
-    .addField(":tools: | Bot Name", `**${bot.user.username}**`)
-    .addField(":alarm_clock: | Created On", `**${bot.user.createdAt}**`)
-    .addField(":ledger: | Discord Server", "**➭ [https://discord.gg/w829yw8]**")
-    .addField(":earth_asia: | Location", "**Indonesian**")
-    .addField(":bust_in_silhouette: | Developed By", "**『AfifGaming』#9369**")
-    .setFooter("Beta v0.2 | Discord.js");
-
-    return message.channel.send(botembed);
-  }
-  
-  
-  if(cmd === `${prefix}cmdrusak`){
-    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, You Don't Have A Permissions To Do This!");
-    if(!args[0]) return message.channel.send("Please Give The Number");
-    message.channel.bulkDelete(args[0]).then(() => {
-      message.channel.send(`🗑 | Succed Cleared ${args[0]} messages.`).then(msg => msg.delete(2000))
-
-      let bicon = bot.user.displayAvatarURL;
-      let purgemod = new Discord.RichEmbed()
-      .setDescription("**PURGE**")
-      .setColor("#0283f8")
-      .addField("Executor:", `${message.author}`, true)
-      .addField("Purge:", `${args[0]}`, true)
-      .setFooter("This Command Error?, Fast DM 『AfifGaming』#9369 To Fix This Error!");
-
-      let modlog = message.guild.channels.find(`name`, "mod-log");
-      if(!modlog) return message.channel.send("Can't Find mod-log channel.");
-
-      modlog.send(purgemod);
-
-
-    })
-  }
 
 
   if(cmd === `${prefix}say`){
