@@ -298,14 +298,14 @@ bot.on("message", async message => {
 
   if(cmd === `${prefix}say`){
     if(!message.member.hasPermission("ADMINISTRATOR")) return;
-    const sayMessage = args.join(" ");
+    const sayMessage = args[1];
     message.delete().catch();
     message.channel.send(sayMessage);
   }
 
 
   if(cmd === `${prefix}afk`){
-    let afkuser = args.join(" ").slice(0);
+    let afkuser = args[1].slice(0);
 
     message.delete()
     message.guild.members.get(message.author.id).setNickname("AFK |" + message.author.username);
@@ -391,7 +391,7 @@ bot.on("message", async message => {
     message.delete()
     let announchemebed = new Discord.RichEmbed()
     .setColor("000000")
-    .addField("📢 Announcement | Information", args.join(" "))
+    .addField("📢 Announcement | Information", args[1])
     .setTimestamp()
     .setFooter(`Executor : ${message.author.username}#${message.author.discriminator}`)
 
