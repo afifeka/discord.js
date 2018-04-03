@@ -313,7 +313,7 @@ bot.on("message", async message => {
   }
   
   
-  if(cmd === `${prefix}purge`){
+  if(cmd === `${prefix}cmdrusak`){
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, You Don't Have A Permissions To Do This!");
     if(!args[0]) return message.channel.send("Please Give The Number");
     message.channel.bulkDelete(args[0]).then(() => {
@@ -478,12 +478,12 @@ bot.on("message", async message => {
   
    if (cmd === `${prefix}play`){
     if (!args[1]) {
-      message.channel.send("Give Me Link")
+      message.channel.send("💿 **| Plase Give Link On Youtube Music!**")
       return;
     }
 
     if (!message.member.voiceChannel) {
-      message.channel.send("Plase Join A Voice Channel!")
+      message.channel.send("💿 **| Plase Join A Voice Channel!**")
       return;
     }
 
@@ -504,12 +504,14 @@ bot.on("message", async message => {
     var server = servers[message.guild.id];
 
     if (server.dispatcher) server.dispatcher.end();
+    message.channel.send("💿 **| Music Has Skipped!**");
   }
 
  if(cmd === `${prefix}stop`){
     var server = servers[message.guild.id];
 
     if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+    message.channel.send("💿 **| Music Has Stopped!**");
   }
   
   if(cmd === `${prefix}weather`){
@@ -575,7 +577,7 @@ bot.on("message", async message => {
    message.channel.send(`Created role ${name}!`)
    }
   
-  if(cmd === `${prefix}purge2`){
+  if(cmd === `${prefix}purge`){
         if(!message.member.hasPermission('MANAGE_MESSAGES')) {
         return message.channel.send("You need the permission **MANAGE_MESSAGES** to use this command!")
     }
