@@ -456,7 +456,8 @@ bot.on("message", async message => {
 
     if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
       play(connection, message)
-      message.channel.send(`💿 **| Now Playing ${args[1]}!**`);
+      message.delete().catch(O_o=>{});
+      message.channel.send(`💿 **| Now Playing ${args[1]} !**`);
     });
   }
 
