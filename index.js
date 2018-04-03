@@ -463,14 +463,16 @@ bot.on("message", async message => {
     var server = servers[message.guild.id];
 
     if (server.dispatcher) server.dispatcher.end();
-    message.channel.send("💿 **| Music Has Skipped!**");
+    message.channel.send("💿 **| Music Has Skipped!**")
+    return; 
   }
 
  if(cmd === `${prefix}stop`){
     var server = servers[message.guild.id];
 
     if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
-    message.channel.send("💿 **| Music Has Stopped!**");
+    message.channel.send("💿 **| Music Has Stopped!**")
+   return; 
   }
   
   if(cmd === `${prefix}weather`){
