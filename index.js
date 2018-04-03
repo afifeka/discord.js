@@ -38,9 +38,7 @@ bot.on("ready", async () => {
 });
 
 bot.on('guildMemberAdd', member => {
-  
-  let role = message.guild.role.find(r => r.name === "NEW")
-  message.member.addRole(role)
+
  
   const channel = member.guild.channels.find('name', 'join-left');
   
@@ -101,8 +99,6 @@ bot.on("message", async message => {
   
   
    if (cmd === `${prefix}verify`) {
-      let remrole = message.guild.role.find(r => r.name === "NEW")
-      message.member.removeRole(remrole)
      
       let role = message.guild.roles.find(r => r.name === "ENERGY");
       message.member.addRole(role)
