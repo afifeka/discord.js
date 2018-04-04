@@ -44,7 +44,12 @@ bot.on('guildMemberAdd', member => {
   
   if (!channel) return;
   
-  channel.send(`${member} Joined The Server!  `);
+  let joinembed = new Discord.RichEmbed()
+  .setDescription("**MEMBER JOIN**")
+  .addField(`${message.author.tag} Joined The Servers!`, "Do not Forget See Rules Yes!")
+  .setFooter("Join-Left AutoMod Alpha v0.2");
+  
+  message.channel.send(joinembed)
 });
 
 bot.on('guildMemberRemove', member => {
@@ -85,7 +90,7 @@ bot.on("message", async message => {
     .addField(":bust_in_silhouette: | Kicked By", `**<@${message.author.id}> | ID ${message.author.id}**`)
     .addField(":no_entry: | Reason", kReason);
 
-    let kickChannel = message.guild.channels.find(`name`, "mod-log");
+    let KickChannel = message.guild.channels.find(`name`, "mod-log");
     if(!kickChannel) return message.channel.send("No Named Channel `mod-log`.");
 
     message.guild.member(kUser).kick(kReason);
