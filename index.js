@@ -321,7 +321,7 @@ bot.on("message", async message => {
 
   if(cmd === `${prefix}say`){
     if(!message.member.hasPermission("ADMINISTRATOR")) return;
-    const sayMessage = args[0];
+    const sayMessage = args[1];
     message.delete().catch();
     message.channel.send(sayMessage);
   }
