@@ -7,7 +7,7 @@ const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 const got = require("got");
 
-const bot = new Discord.Client({disableEveryone: true});
+const bot = new Discord.Client({disableEveryone: false});
 
 var servers = {}
 
@@ -321,7 +321,7 @@ bot.on("message", async message => {
 
   if(cmd === `${prefix}say`){
     if(!message.member.hasPermission("ADMINISTRATOR")) return;
-    const sayMessage = args[1];
+    const sayMessage = message.content.split(" ").slice(1).join(" ");
     message.delete().catch();
     message.channel.send(sayMessage);
   }
