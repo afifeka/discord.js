@@ -171,7 +171,7 @@ bot.on("message", async message => {
 
   if(cmd === `${prefix}addrole`){
     if (!message.member.hasPermission("MANAGE_ROLES")) return errors.noPerms(message, "MANAGE_ROLES");
-    if (args[1] == "help") {
+    if (args[0] == "help") {
       message.reply("Usage: !addrole <user> <role>");
       return;
     }
