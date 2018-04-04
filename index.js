@@ -563,6 +563,30 @@ bot.on("message", async message => {
    message.channel.send(`Created role ${name}!`)
    }
   
+  if(cmd === `${prefix}purge`){
+    message.delete()
+    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, you don't have a permissions to do this!");
+    if(!args[0]) return message.channel.send("Please Give The Number");
+    message.channel.bulkDelete(args[0]).then(() => {
+      message.channel.send(`🗑 | ${message.author} Succed Cleared ${args[0]} messages.`).then(msg => msg.delete(999999));
+
+      let bicon = bot.user.displayAvatarURL;
+      let purgemod = new Discord.RichEmbed()
+      .setAuthor("Log | Purge", `https://images-ext-1.discordapp.net/external/fthmtHB4VcjVNH0P_yelzxnIj208kreL34GdDZOwxBU/https/qph.ec.quoracdn.net/main-qimg-83c6de25ed91d13a4f09fb5f11ca8853`)
+      .setColor("#414c56")
+      .addField("Executor:", `${message.author}`, true)
+      .addField("Purge:", `${args[0]}`, true)
+      .setFooter("WARNING!: This bot it still on beta testing. If you have any issue or suggestion please dm Afif");
+
+      let modlog = message.guild.channels.find(`name`, "mod-log");
+      if(!modlog) return message.channel.send("Can't Find mod-log channel.");
+
+      modlog.send(purgemod);
+
+
+    })
+  }
+  
 
 
 
