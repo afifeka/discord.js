@@ -6,6 +6,7 @@ const ms = require("ms");
 const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 const got = require("got");
+const db = require('quick.db');
 
 const bot = new Discord.Client({disableEveryone: false});
 
