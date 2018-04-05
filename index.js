@@ -7,6 +7,7 @@ const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 const got = require("got");
 const db = require('quick.db');
+const request = require("request");
 
 const bot = new Discord.Client({disableEveryone: false});
 
@@ -661,26 +662,26 @@ bot.on("message", async message => {
   
   if(cmd === `${prefix}reload`){
         var embedNoWork = new Discord.RichEmbed()
-  .setTitle("Restricted")
+    .setTitle("Restricted")
     .setColor("#f45f42")
-  .addField("You are restricted from this command", "Its for the bot owners only!")
+    .addField("You are restricted from this command", "Its for the bot owners only!")
     
     var authors = ["331616752767205378"];
     if(!authors.includes(message.author.id)) {
     message.channel.send({embed: embedNoWork});
     }
     
-  const term = require( 'terminal-kit' ).terminal ;
+    const term = require( 'terminal-kit' ).terminal ;
 
-  if (!args || args.length < 1) return message.channel.send("Must provide a command name to reload!");
+    if (!args || args.length < 1) return message.channel.send("Must provide a command name to reload!");
 
     delete require.cache[require.resolve(`./${args[0]}.js`)];
     message.channel.send("Succesfully reloaded " + `${args[0]}`)
 
-let progressBar , progress = 0 ;
+    let progressBar , progress = 0 ;
 
-  function doProgress()
-  {
+    function doProgress()
+    {
     progress += Math.random() / 10 ;
     progressBar.update( progress ) ; 
 
@@ -701,6 +702,29 @@ let progressBar , progress = 0 ;
   });
   doProgress();
 }
+  
+  if(cmd === `${prefix}cat`){
+        var requesting = request.get('http://thecatapi.com/api/images/get.php/jpg.php?type=jpg', function(err, res, body) {
+        if (err) {
+            console.log("An error was found while pushing a cat image so I've moved to trying to send a PNG image!");
+            var requesting2 = request.get('http://thecatapi.com/api/images/get.php/png.php?type=png', function(err, res, body) {
+                if (err) {
+                    var requesting3 = request.get('http://thecatapi.com/api/images/get.php/png.php?type=png', function(err, res, body) {
+                        if (err) {
+                            return message.channel.send("I couldn't find any Cat pictures or GIFs sorry!");
+                        }
+                        message.channel.send({file: requesting3.uri.href})
+                    })
+                }
+                message.channel.send({file: requesting2.uri.href})
+            })
+        }
+        message.channel.send({file: requesting.uri.href})
+    })
+    
+    
+    
+  }
 
 
 
