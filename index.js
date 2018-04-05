@@ -46,12 +46,7 @@ bot.on('guildMemberAdd', member => {
   
   if (!channel) return;
   
-  let joinembed = new Discord.RichEmbed()
-  .setDescription("**MEMBER JOIN**")
-  .addField(`${message.author.tag} Joined The Servers!`, "Do not Forget See Rules Yes!")
-  .setFooter("Join-Left AutoMod Alpha v0.2");
-  
-  message.channel.send(joinembed)
+  message.channel.send(`${message.author.tag} Joined The Server!`)
 });
 
 bot.on('guildMemberRemove', member => {
@@ -60,7 +55,7 @@ bot.on('guildMemberRemove', member => {
   
   if (!channel) return;
   
-  channel.send(`${member} Left The Server! `);
+  channel.send(`${message.author.tag} Left The Server! `);
 });
 
 
@@ -110,7 +105,7 @@ bot.on("message", async message => {
       let role = message.guild.roles.find(r => r.name === "ENERGY");
       message.member.addRole(role)
     
-      if(message.member.roles.has(role.id)) return message.reply("You already have Citizens roles!");
+      if(message.member.roles.has(role.id)) return message.reply("You already have ENERGY roles!");
 
       let acceptlaporan = new Discord.RichEmbed()
       .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL)
@@ -119,7 +114,7 @@ bot.on("message", async message => {
       .setFooter("Ikan | Beta v2.0")
 
       let modlog = message.guild.channels.find(`name`, "mod-log");
-      if(!modlog) return message.channel.send("Can't Find mod-log channel.");
+      if(!modlog) return message.channel.send("Cant Find mod-log Channel.");
 
       modlog.send(acceptlaporan);
       message.react("✅");
@@ -407,8 +402,8 @@ bot.on("message", async message => {
   
   if(cmd === `${prefix}tempmute`){
     let tomute = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!tomute) return message.reply("No Player Wants You Mute!");
-    if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
+    if(!tomute) return message.reply(":bust_in_silhouette: | No Player Wants You Mute!");
+    if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply(":negative_squared_cross_mark: | Cant Mute Them!");
     let muterole = message.guild.roles.find(`name`, "muted");
     //start of create role
     if(!muterole){
@@ -433,11 +428,11 @@ bot.on("message", async message => {
     if(!mutetime) return message.reply("You didn't specify a time!");
   
     await(tomute.addRole(muterole.id));
-    message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
+    message.reply(`:white_check_mark: | <@${tomute.id}> Has Been Muted For ${ms(ms(mutetime))}`);
   
     setTimeout(function(){
       tomute.removeRole(muterole.id);
-      message.channel.send(`<@${tomute.id}> has been unmuted!`);
+      message.channel.send(`:hourglass_flowing_sand: | <@${tomute.id}> Has Been Unmuted!`);
     }, ms(mutetime));
   }
   
@@ -485,11 +480,11 @@ bot.on("message", async message => {
   
   if(cmd === `${prefix}weather`){
     const city = message.content.split(" ").slice(1).join(" ")
-    if (!city) return message.channel.send("**Error**\nYou did not include a city! Please include it so we can show the forecast!")
+    if (!city) return message.channel.send("**:negative_squared_cross_mark: | Error**\nYou Did Not Include The City")
 
     weather.find({search: city, degreeType: 'F'}, function(err, result) {
         if (err) {
-            message.channel.send(":x: No results on that city :x:")
+            message.channel.send(":negative_squared_cross_mark: | No Results Onn That City!")
             console.log(err.stack)
             return;
         } 
@@ -511,39 +506,16 @@ bot.on("message", async message => {
         message.channel.send({ embed: embed })
    })};
   
-  if(cmd === `{$prefix}mcstats`){
-     const server = message.content.split(" ").slice(1).join(" ")
-     if (!server) {
-         var embed = new Discord.RichEmbed()
-         .setColor("RED")
-         .setDescription(":x: **|** You did not include any __Arguments__")
-         message.channel.send({ embed: embed })
-     }
-     const url = await got(`https://api.mcsrvstat.us/1/${server}`, {json: true})
-     if (url.body.ip === "") {
-         var embed = new Discord.RichEmbed()
-         .setColor("RED")
-         .setDescription(":x: **|** That is __Not__ a valid IP")
-         message.channel.send({ embed: embed })
-     }
-     var embed = new Discord.RichEmbed()
-     .setDescription(`Information on **${server}**`)
-     .setColor("#52bcf5")
-     .setThumbnail("https://cdn.worldvectorlogo.com/logos/minecraft-1.svg")
-     .setTimestamp()
-     .addField(":computer: Real IP Adress :computer:", `**__${url.body.ip}__**`)
-     .addField(":computer: Port :computer:", `**__${url.body.port}__**`)
-     message.channel.send({ embed: embed })
- }
+
   
   if (cmd === `${prefix}createrole`){
-     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("You do not have permission to create roles!");
+     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send(":warning: | You Do Not Have Permission To Create Roles!");
      const name = message.content.split(' ').slice(1).join(' ');
      if (!message.guild.me.hasPermission("MANAGE_ROLES")) return message.reply("I do not have permission to create roles!");
      message.guild.createRole({
      name: `${name}`
      })
-   message.channel.send(`Created role ${name}!`)
+   message.channel.send(`:white_check_mark: | Created Role ${name}!`)
    }
   
   if(cmd === `${prefix}purge`){
@@ -572,9 +544,9 @@ bot.on("message", async message => {
   
   if(cmd === `${prefix}poll`){
         const questions = message.content.split(' ').slice(1).join(' ');
-    if (!questions) return message.channel.send("Don't leave it blank cmon?");
+    if (!questions) return message.channel.send("Dont Leave It Blank Cmon?");
     if (!message.content.includes("|")) {
-        message.channel.send("You need to have a **|** for me to work the command!");
+        message.channel.send(":warning: | You Need To Have A **|** For Me To Work The Command!");
         return;
     }
     
@@ -585,7 +557,7 @@ bot.on("message", async message => {
     let secondChoice = choiceTwo;
     
     if (questions.length < 2) {
-        return message.channel.send("Mind actually using the correct format of the command? Use pr!help poll for the format");
+        return message.channel.send("Mind actually using the correct format of the command? Use i!help poll for the format");
     }
     
     if (!firstChoice) {
