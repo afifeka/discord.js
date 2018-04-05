@@ -7,6 +7,7 @@ const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 const got = require("got");
 const db = require('quick.db');
+const prefixes = require('./prefixes.json');
 
 const bot = new Discord.Client({disableEveryone: false});
 
@@ -696,36 +697,20 @@ let progressBar , progress = 0 ;
 
 
   progressBar = term.progressBar({
-    width: 80 ,
-    title: 'Reloading Command '+args[0]+':' ,
-    eta: true ,
+    width: 80 ,    eta: true ,
     percent: true
   });
   doProgress();
 }
-  
-  if(cmd === `${prefix}setprefix`){
-      if(!message.member.hasPermission("MANAGE_SERVER")) return message.reply("No no no.");
-  if(!args[0] || args[0 == "help"]) return message.reply("Usage: !prefix <desired prefix here>");
+  if(cmd === `${prefix}setprefix`{
+         const prefix = prefixes[message.guild.id].prefix;
+     if (!message.member.hasPermission("MANAGE_GUILD") && message.author.id !== "331616752767205378" &&  message.author.id !== "265279363199533068") return message.channel.send(`__**Access Denied**__\nYou must have __MANAGE_GUILD__ perms to use this command.`); 
+    if (!args) return message.channel.send("You did not set a prefix! Please do!");
+    prefixes[message.guild.id].prefix = `${args}`
 
-  let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
-
-  prefixes[message.guild.id] = {
-    prefixes: args[0]
-  };
-
-  fs.writeFile("./prefixes.json", JSON.stringify(prefixes), (err) => {
-    if (err) console.log(err)
-  });
-
-  let sEmbed = new Discord.RichEmbed()
-  .setColor("#FF9900")
-  .setTitle("Prefix Set!")
-  .setDescription(`Set to ${args[0]}`);
-
-  message.channel.send(sEmbed);
-
+    message.channel.send(`The new prefix for ${message.guild.name} is now ${args}!!!`)
 }
+
 
   
 
