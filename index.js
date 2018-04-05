@@ -30,9 +30,9 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
 
   function randomStatus() {
-        let status = [`${bot.guilds.size} Guilds In Your Party!`, `On ${bot.users.size.toLocaleString()} Users!`, `Add Music Command!`, `Help? | i!help`]
+        let status = [`${bot.guilds.size} SERVERS!!`, `${bot.users.size.toLocaleString()} USERS!`, `Edit All Command To English!`, `i!help | Beta v1.0`]
         let rstatus = Math.floor(Math.random() * status.length);
-        bot.user.setActivity(status[rstatus], {type: 'STREAMING'});
+        bot.user.setActivity(status[rstatus], {type: 'WATCHING'});
 
    }; setInterval(randomStatus, 40000)
  
