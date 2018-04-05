@@ -668,41 +668,9 @@ bot.on("message", async message => {
             })
         }
         message.channel.send({file: requesting.uri.href})
-    })
-    
-    
+    }) 
     
   }
-  
-  if(cmd === `${prefix}serverlist`){
-    	var authors = ["331616752767205378", "331616752767205378"];
-    if(!authors.includes(message.author.id)) {
-		const guilds = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.username} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(0, 15).join('\n')
-		const guilds2 = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.username} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(16, 31).join('\n')
-		const guilds3 = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.tag} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(32, 45).join('\n')
-		message.author.send(`= Prisim's Servers Part 1 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n ${guilds}`, {code:'asciidoc'});
-		message.author.send(`= Prisim's Servers Part 2 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n ${guilds2}`, {code:'asciidoc'});
-		message.author.send(`= Prisim's Servers Part 3 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n ${guilds3}`, {code:'asciidoc'});
-		message.channel.send({
-            embed: {
-                color: 0x503d82,
-                description: "Servers list was sent to your DMs :mailbox_with_mail:"
-            }
-        })
-    } else {
-			const guilds = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.tag} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(0, 15).join('\n')
-			const guilds2 = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.tag} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(16, 31).join('\n')
-			const guilds3 = bot.guilds.map(g=>`${g.name} :: ${g.owner.user.tag} :: ${g.members.size} users :: ${g.channels.size} channels`).slice(32, 45).join('\n')
-		message.author.send(`= Prisim's Servers Part 1 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n${guilds}`, {code:'asciidoc'});
-		message.author.send(`= Prisim's Servers Part 2 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n${guilds2}`, {code:'asciidoc'});
-		message.author.send(`= Prisim's Servers  Part 3 =\n [Guild Name :: Guild Owner :: Guild Member Size :: Guild Channels Size] \n \n${guilds3}`, {code:'asciidoc'});
-		message.channel.send({
-            embed: {
-                color: 0x503d82,
-                description: "Servers list was sent to your DMs :mailbox_with_mail:"
-            }
-        })
-    }}
 
   if(cmd === `${prefix}clear`){
 	    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("No.");
@@ -710,8 +678,54 @@ bot.on("message", async message => {
   message.channel.bulkDelete(args[0]).then(() => {
   message.channel.send(`Clear ${args[0]} messages.`).then(msg => msg.delete(2000));
 });
-
 }
+  if(cmd === `${prefix}reload){
+ var embedNoWork = new Discord.RichEmbed()
+  .setTitle("Restricted")
+    .setColor("#f45f42")
+  .addField("You are restricted from this command", "Its for the bot owners only!")
+    
+    var authors = ["396027480097554432", "262410813254402048"];
+    if(!authors.includes(message.author.id)) {
+    message.channel.send({embed: embedNoWork});
+    }
+    
+  const term = require( 'terminal-kit' ).terminal ;
+
+  if (!args || args.length < 1) return message.channel.send("Must provide a command name to reload!");
+
+    delete require.cache[require.resolve(`./${args[0]}.js`)];
+    message.channel.send("Succesfully reloaded " + `${args[0]}`)
+
+let progressBar , progress = 0 ;
+
+  function doProgress()
+  {
+    progress += Math.random() / 10 ;
+    progressBar.update( progress ) ; 
+
+    if ( progress >= 1 )
+    {
+    console.log(`The command ${args[0]} has been reloaded`)
+    }
+    else
+    {
+      setTimeout( doProgress , 100 + Math.random() * 400 ) ;
+    }
+  }
+
+
+  progressBar = term.progressBar({
+    width: 80 ,
+    title: 'Reloading Command '+args[0]+':' ,
+    eta: true ,
+    percent: true
+  });
+  doProgress();
+}
+
+	
+  
 
 
   
