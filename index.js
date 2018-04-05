@@ -115,15 +115,14 @@ bot.on("message", async message => {
       let acceptlaporan = new Discord.RichEmbed()
       .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL)
       .setColor(3447003)
-      .setDescription(`${message.author.tag} has been verified`)
+      .setDescription(`${message.author.tag} Has Been Verified`)
       .setFooter("Ikan | Beta v2.0")
 
       let modlog = message.guild.channels.find(`name`, "mod-log");
       if(!modlog) return message.channel.send("Can't Find mod-log channel.");
 
       modlog.send(acceptlaporan);
-      message.react("👋");
-      message.author.send(acceptlaporan);
+      message.react("✅");
 
     }
 
@@ -179,53 +178,53 @@ bot.on("message", async message => {
   if(cmd === `${prefix}addrole`){
     if (!message.member.hasPermission("MANAGE_ROLES")) return errors.noPerms(message, "MANAGE_ROLES");
     if (args[0] == "help") {
-      message.reply("Usage: !addrole <user> <role>");
+      message.reply(":warning: | \nUsage: !addrole [user] [role]");
       return;
     }
     let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
     if (!rMember) return errors.cantfindUser(message.channel);
     let role = args.join(" ").slice(22);
-    if (!role) return message.reply("Specify a role!");
+    if (!role) return message.reply(":bust_in_silhouette: | Specify a role!");
     let gRole = message.guild.roles.find(`name`, role);
-    if (!gRole) return message.reply("Couldn't find that role.");
+    if (!gRole) return message.reply(":bust_in_silhouette: | Roles Not Found!");
   
-    if (rMember.roles.has(gRole.id)) return message.reply("They already have that role.");
+    if (rMember.roles.has(gRole.id)) return message.reply("✅ | They Hlready Have That Role!");
     await (rMember.addRole(gRole.id));
   
     try {
-      await rMember.send(`Congrats, you have been given the role ${gRole.name}`)
+      await rMember.send(`Congrats, You Have Been Given The Role ${gRole.name}`)
     } catch (e) {
       console.log(e.stack);
-      message.channel.send(`Congrats to <@${rMember.id}>, they have been given the role ${gRole.name}. We tried to DM them, but their DMs are locked.`)
+      message.channel.send(`:tada: | Congrats To <@${rMember.id}>, They Have Been Given The Role ${gRole.name}`)
     }
   }
   
   if(cmd === `${prefix}removerole`){
     if (!message.member.hasPermission("MANAGE_ROLES")) return errors.noPerms(message, "MANAGE_ROLES");
     if(args[0] == "help"){
-      message.reply("Usage: !removerole <user> <role>");
+      message.reply(":warning: | Usage: !removerole <user> <role>");
       return;
     }
     let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
-    if(!rMember) return message.reply("Couldn't find that user, yo.");
+    if(!rMember) return message.reply(":warning: | Couldn't Find That User, To.");
     let role = args.join(" ").slice(22);
-    if(!role) return message.reply("Specify a role!");
+    if(!role) return message.reply(":bust_in_silhouette: | Specify a role");
     let gRole = message.guild.roles.find(`name`, role);
-    if(!gRole) return message.reply("Couldn't find that role.");
+    if(!gRole) return message.reply(":bust_in_silhouette: | Roles Not Found!");
   
-    if(!rMember.roles.has(gRole.id)) return message.reply("They don't have that role.");
+    if(!rMember.roles.has(gRole.id)) return message.reply(":warning: | They Don't Have That Role!");
     await(rMember.removeRole(gRole.id));
   
     try{
-      await rMember.send(`RIP, you lost the ${gRole.name} role.`)
+      await rMember.send(`RIP, You Lost The ${gRole.name} Role!`)
     }catch(e){
-      message.channel.send(`RIP to <@${rMember.id}>, We removed ${gRole.name} from them. We tried to DM them, but their DMs are locked.`)
+      message.channel.send(`RIP To <@${rMember.id}>`)
     }
   }
   
   if(cmd === `${prefix}ikan`){
-    if(!args[2]) return message.reply("**Usage `!ikan apakah <Question>`**");
-    let replies = ["Iya", "Tidak", "Saya Tidak Tahu", "Apa Yang Kamu Bilang?", "Sangat Benar", "Sangat Salah"];
+    if(!args[2]) return message.reply("**Usage `!ikan <Question>`**");
+    let replies = ["Yes", "No", "I Dont Know!", "Apa Yang Kamu Bilang?", "Sangat Benar", "Sangat Salah"];
 
     let result = Math.floor((Math.random() * replies.length));
     let question = args.slice(1).join(" ");
@@ -281,29 +280,6 @@ bot.on("message", async message => {
 
     return;
   }
-  
-  if(cmd === `${prefix}prefix`) {
-    if(!message.member.hasPermission("MANAGE_SERVER")) return message.reply("No no no.");
-    if(!args[0] || args[0 == "help"]) return message.reply("Usage: !prefix <desired prefix here>");
-  
-    let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
-  
-    prefixes[message.guild.id] = {
-      prefixes: args[0]
-    };
-  
-    fs.writeFile("./prefixes.json", JSON.stringify(prefixes), (err) => {
-      if (err) console.log(err)
-    });
-  
-    let sEmbed = new Discord.RichEmbed()
-    .setColor("#FF9900")
-    .setTitle("Prefix Set!")
-    .setDescription(`Set to ${args[0]}`);
-  
-    message.channel.send(sEmbed);
-  
-  }
 
 
 
@@ -339,7 +315,7 @@ bot.on("message", async message => {
 
     message.delete()
     message.guild.members.get(message.author.id).setNickname("AFK |" + message.author.username);
-    message.channel.send("**:bust_in_silhouette: | User Has Afk >>** " + `${message.author} ` + `**>> ${afkuser}**`)
+    message.channel.send("**:bust_in_silhouette: | User Has Afk »** " + `${message.author} ` + `**» ${afkuser}**`)
 
      return;
   }
@@ -349,8 +325,8 @@ bot.on("message", async message => {
     let helpembed = new Discord.RichEmbed()
     .setColor("#15f153")
     .setDescription("**Prefix : `i!`**")
-    .addField(":lock: Moderators Command!", "| `i!ban` | `i!kick` | `i!tempmute` | `i!say` | `i!purge` | `i!news` | `i!warn` | `i!addrole help` | `i!removerole help` |")
-    .addField(":earth_asia: General Command", "| `i!info` | `i!serverinfo` | `i!ping` | `i!afk` | `i!help` | `i!kecoa apakah (question)` | `i!userinfo` | `!stats` |`")
+    .addField(":lock: Moderators Command!", "| `i!ban [Player] [Reason]` | `i!kick [Player] [Reason]` | `i!tempmute [Player] [Time]` |\n| `i!say [say]` | `i!purge [Number]` | `i!news [news]` |\n| `i!warn [*Comming Soon*]` | `i!addrole [Player] [Role Name]` | `i!removerole help` |")
+    .addField(":earth_asia: General Command", "| `i!info` | `i!serverinfo` | `i!ping` |\n| `i!afk [Reason]` | `i!help` | `i!ikan [question]` |\n| `i!userinfo [User]` | `!stats` | `!serverlist` |\n| `!weather [Location]`")
     .addField(":musical_note: Music Command", "| `i!play` | `i!skip` | `i!stop` |")
     .setFooter("Beta v0.2 | Discord.js");
     message.delete().catch(O_o=>{});
