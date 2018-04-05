@@ -37,7 +37,7 @@ bot.on("ready", async () => {
         let rstatus = Math.floor(Math.random() * status.length);
         bot.user.setActivity(status[rstatus], {type: 'WATCHING'});
 
-   }; setInterval(randomStatus, 40000)
+   }; setInterval(randomStatus, 5000)
  
   
 });
