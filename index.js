@@ -638,7 +638,7 @@ bot.on("message", async message => {
     
 }
   if (cmd === `${prefix}bc`){
-        if (message.author.id !== "262410813254402048" && message.author.id !== "396027480097554432") return;
+        if (message.author.id !== "331616752767205378" && message.author.id !== "396027480097554432") return;
     const args2 = message.content.split(" ").slice(1).join(" ");
     if (!args2) return message.channel.send("**Error**\nWhy would you want me to broadcast nothing?")
     message.channel.send(`I had sent **${args2}** to all the subscribers of \`Prism-News\`!`)
