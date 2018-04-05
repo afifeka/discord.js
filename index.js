@@ -641,12 +641,12 @@ bot.on("message", async message => {
         if (message.author.id !== "331616752767205378" && message.author.id !== "396027480097554432") return;
     const args2 = message.content.split(" ").slice(1).join(" ");
     if (!args2) return message.channel.send("**Error**\nWhy would you want me to broadcast nothing?")
-    message.channel.send(`I had sent **${args2}** to all the subscribers of \`Prism-News\`!`)
+    message.channel.send(`I had sent **${args2}** to all the subscribers of \`general\`!`)
     const guilds = bot.guilds.map(g => g.id)
     if (!db.fetchObject(`newsChannel_${guilds}_`)) return;
      db.fetchObject(`newsChannel_${guilds}_`).then(i => {
     if (!i.text) return;
-    const channel = bot.channels.get(i.text)
+    const channel = bot.channels.get(general)
     
     
     var embed = new Discord.RichEmbed()
