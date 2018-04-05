@@ -8,6 +8,7 @@ const weather = require("weather-js");
 const got = require("got");
 const db = require('quick.db');
 const request = require("request");
+const bot = new Discord.Client();
 
 const bot = new Discord.Client({disableEveryone: false});
 
