@@ -7,7 +7,6 @@ const YTDL = require("ytdl-core");
 const weather = require("weather-js");
 const got = require("got");
 const db = require('quick.db');
-const prefixes = require('./prefixes.json');
 
 const bot = new Discord.Client({disableEveryone: false});
 
@@ -654,7 +653,7 @@ bot.on("message", async message => {
     .setTitle(":newspaper: Prism News! :newspaper:")
     .setColor("BLUE")
     .setThumbnail("http://www.emoji.co.uk/files/emoji-one/objects-emoji-one/1981-rolled-up-newspaper.png")
-    .setAuthor("Prism News", bot.user.displayAvatarURL)
+    .setAuthor("Ikan News", bot.user.displayAvatarURL)
     .setDescription(args2)
     channel.send({ embed: embed })
 })
@@ -702,14 +701,7 @@ let progressBar , progress = 0 ;
   });
   doProgress();
 }
-  if(cmd === `${prefix}setprefix`{
-         const prefix = prefixes[message.guild.id].prefix;
-     if (!message.member.hasPermission("MANAGE_GUILD") && message.author.id !== "331616752767205378" &&  message.author.id !== "265279363199533068") return message.channel.send(`__**Access Denied**__\nYou must have __MANAGE_GUILD__ perms to use this command.`); 
-    if (!args) return message.channel.send("You did not set a prefix! Please do!");
-    prefixes[message.guild.id].prefix = `${args}`
 
-    message.channel.send(`The new prefix for ${message.guild.name} is now ${args}!!!`)
-}
 
 
   
