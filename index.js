@@ -73,51 +73,34 @@ bot.on("message", async message => {
   var args = message.content.substring(prefix.length).split(" ");
   //let args = messageArray.slice(1);
 
-  if(cmd === `${prefix}kick`){
+if(cmd === `${prefix}kick`){
 
-    //!kick @daeshan askin for it
+  //!kick @daeshan askin for it
 
-    let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!kUser) let Horembed = new Discord.RichEmbed()
-    .setDescription("**COMMANDS**")
-    .addField("**PLASE USAGE**", "i!kick [Player] [Reason]***")
-    .setFooter("Error cmd? plase dm Afif_ now!")
-    message.channel.send(Horembed)
-    let kReason = args.join(" ").slice(22);
-    if(!message.member.hasPermission("MANAGE_MESSAGES")) let IEmbed = new Discord.RichEmbed()
-    .setDescription("**COMMANDS**")
-    .addField("*You Dont Have Permission!*", "*Like This :D*")
-    .setFooter("Error cmd? plase dm Afif_ now!")
-    message.channel.send(IEmbed)
-    if(kUser.hasPermission("MANAGE_MESSAGES")) let pEmbed = new Discord.RichEmbed()
-    .setDescription("**COMMANDS**")
-    .addField("*:negative_squared_cross_mark:", "Failed To Kick This Person!*")
-    .setFooter("Error cmd? plase dm Afif_ now!")
-    message.channel.send(pEmbed)
+  let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+  if(!kUser) return message.channel.send(":warning: **| Please Tag Player To Be Kicked!**");
+  let kReason = args.join(" ").slice(22);
+  if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
+  if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(":negative_squared_cross_mark: **| Failed To Kicked This Person!**");
 
-    let kickEmbed = new Discord.RichEmbed()
-    .setDescription("**KICKED**")
-    .setColor("#f80a0a")
-    .addField(":bust_in_silhouette: | Player Kicked", `**${kUser} | ID ${kUser.id}**`)
-    .addField(":bust_in_silhouette: | Kicked By", `**<@${message.author.id}> | ID ${message.author.id}**`)
-    .addField(":no_entry: | Reason", kReason)
-    .addField("Error cmd? plase dm Afif_ now!")
+  let kickEmbed = new Discord.RichEmbed()
+  .setDescription("**KICKED**")
+  .setColor("#f80a0a")
+  .addField(":bust_in_silhouette: | Player Kicked", `**${kUser} | ID ${kUser.id}**`)
+  .addField(":bust_in_silhouette: | Kicked By", `**<@${message.author.id}> | ID ${message.author.id}**`)
+  .addField(":no_entry: | Reason", kReason);
 
-    let kickChannel = message.guild.channels.find(`name`, "mod-log");
-    if(!kickChannel) return message.channel.send("No Named Channel `mod-log`.");
+  let kickChannel = message.guild.channels.find(`name`, "mod-log");
+  if(!kickChannel) return message.channel.send("No Named Channel `mod-log`.");
 
-    message.guild.member(kUser).kick(kReason);
-    
-    message.delete().catch(O_o=>{});
-    let lolEmbed = new Discord.RichEmbed()
-    .setDescription("**COMMANDS**")
-    .addField("Success To Kick This Player")
-    .setFooter("Error cmd? plase dm Afif_ now!")
-    message.channel.send(lolEmbed)
-    kickChannel.send(kickEmbed);
+  message.guild.member(kUser).kick(kReason);
+  
+  message.delete().catch(O_o=>{});
+  message.channel.send(":white_check_mark:  | **Succes Kicked Players**")
+  kickChannel.send(kickEmbed);
 
-    return;
-  }
+  return;
+}
   
   
    if (cmd === `${prefix}verify`) {
